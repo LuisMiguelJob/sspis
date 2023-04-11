@@ -27,7 +27,7 @@
     <link rel="icon" type="image/png" href=" {{ asset('assets/img/favicon.png') }} ">
 
     <title>
-        Material Dashboard 2 by Creative Tim & UPDIVISION
+        Iniciar sesion/Login
     </title>
 
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />
@@ -114,6 +114,9 @@
                                     </div>
                                 </div>
                             </div>
+
+                            {{-- @include('partials.form-errors') --}}
+
                             <div class="card-body">
                                 <form method="POST" action=" {{ route('login') }} " class="text-start">
                                     @csrf
@@ -125,8 +128,15 @@
                                             class="form-control" 
                                             name="email"
                                             id="email"
+                                            value="{{ old('email') }}"
                                         />
                                     </div>
+
+                                    @error('email')
+                                        <span class="text-danger inputerror">
+                                            {{ $message }}
+                                        </span>
+                                    @enderror 
 
                                     <div class="input-group input-group-outline mt-3">
                                         <label class="form-label">{{ __('Password') }}</label>
