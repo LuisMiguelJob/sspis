@@ -64,7 +64,19 @@
     </div>
     <hr class="horizontal light mt-0 mb-2">
     <div class="collapse navbar-collapse  w-auto  max-height-vh-100" id="sidenav-collapse-main">
+
+        
+
         <ul class="navbar-nav">
+            {{-- <li>
+                <div class="mt-2 d-flex">
+                    <h6 class="mb-0">Light / Dark</h6>
+                    <div class="form-check form-switch ps-0 ms-auto my-auto">
+                        <input class="form-check-input mt-1 ms-auto" type="checkbox" id="dark-version" onclick="darkMode(this)">
+                    </div>
+                </div>
+            </li> --}}
+
             <li class="nav-item mt-3">
                 <h6 class="ps-4 ms-2 text-uppercase text-xs text-white font-weight-bolder opacity-8">Laravel examples</h6>
             </li>
@@ -200,21 +212,54 @@
         </nav>
         <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
             <div class="ms-md-auto pe-md-3 d-flex align-items-center">
-                <div class="input-group input-group-outline">
-                    <label class="form-label">Type here...</label>
-                    <input type="text" class="form-control">
-                </div>
             </div>
+
             <form method="POST" action="" class="d-none" id="logout-form">
                 <input type="hidden" name="_token" value="ZQV27cHUkln5iXZLh6BEIzzphU54kspEwNFHOqk9">            </form>
             <ul class="navbar-nav  justify-content-end">
                 <li class="nav-item d-flex align-items-center">
-                    <a href="javascript:;" class="nav-link text-body font-weight-bold px-0">
-                        <i class="fa fa-user me-sm-1"></i>
-                        <span wire:id="Im3zyvuypazRCL0P9r8X" wire:initial-data="{&quot;fingerprint&quot;:{&quot;id&quot;:&quot;Im3zyvuypazRCL0P9r8X&quot;,&quot;name&quot;:&quot;auth.logout&quot;,&quot;locale&quot;:&quot;en&quot;,&quot;path&quot;:&quot;dashboard&quot;,&quot;method&quot;:&quot;GET&quot;,&quot;v&quot;:&quot;acj&quot;},&quot;effects&quot;:{&quot;listeners&quot;:[]},&quot;serverMemo&quot;:{&quot;children&quot;:[],&quot;errors&quot;:[],&quot;htmlHash&quot;:&quot;cbfe6cf3&quot;,&quot;data&quot;:[],&quot;dataMeta&quot;:[],&quot;checksum&quot;:&quot;12442f9afa6ac5059024d1844a4497c3ddc5380aae94cbb9ee1f7d170349d994&quot;}}" wire:click="destroy" class="d-sm-inline d-none">Sign
-    Out</span>
+                    
+                    {{-- px-? es para separar los divs a la izquierda--}}
+                    {{-- <div class="nav-link text-body font-weight-bold px-0"> 
+                        <h6 class="me-sm-1">Light / Dark</h6>
+                    </div>
 
-<!-- Livewire Component wire-end:Im3zyvuypazRCL0P9r8X -->                    </a>
+                    <div class="nav-link text-body font-weight-bold px-1">
+                        <div class="form-check form-switch ps-0 ms-auto my-auto">
+                            <input class="form-check-input mt-1 ms-auto" type="checkbox" id="dark-version" onclick="darkMode(this)">
+                        </div>
+                    </div> --}}
+
+                    <a class="nav-link text-body font-weight-bold px-0">
+                        <span class="d-sm-inline d-none">
+                            Light/Dark
+                        </span>
+                        
+                    </a>
+
+                    <a class="nav-link text-body font-weight-bold px-3">
+                        <div class="form-check form-switch ps-1 ms-auto my-auto">
+                            <input class="form-check-input mt-0 ms-auto" type="checkbox" id="dark-version" onclick="darkMode(this)">
+                        </div>
+                    </a>
+                    
+                    {{-- Cambiar claro a oscuro --}}
+                    {{-- <div class="mt-2 d-flex">
+                        <h6 class="mb-0">Light / Dark</h6>
+                        <div class="form-check form-switch ps-0 ms-auto my-auto">
+                            <input class="form-check-input mt-1 ms-auto" type="checkbox" id="dark-version" onclick="darkMode(this)">
+                        </div>
+                    </div> --}}
+                    {{--  --}}
+                    
+                    <a href="javascript:;" class="nav-link text-body font-weight-bold px-4">
+                        <i class="fa fa-user me-sm-1"></i>
+                        <span wire:id="Im3zyvuypazRCL0P9r8X" wire:initial-data="{&quot;fingerprint&quot;:{&quot;id&quot;:&quot;Im3zyvuypazRCL0P9r8X&quot;,&quot;name&quot;:&quot;auth.logout&quot;,&quot;locale&quot;:&quot;en&quot;,&quot;path&quot;:&quot;dashboard&quot;,&quot;method&quot;:&quot;GET&quot;,&quot;v&quot;:&quot;acj&quot;},&quot;effects&quot;:{&quot;listeners&quot;:[]},&quot;serverMemo&quot;:{&quot;children&quot;:[],&quot;errors&quot;:[],&quot;htmlHash&quot;:&quot;cbfe6cf3&quot;,&quot;data&quot;:[],&quot;dataMeta&quot;:[],&quot;checksum&quot;:&quot;12442f9afa6ac5059024d1844a4497c3ddc5380aae94cbb9ee1f7d170349d994&quot;}}" wire:click="destroy" class="d-sm-inline d-none">
+                            Cerrar sesion
+                        </span>
+                    </a>
+                    
+<!-- Livewire Component wire-end:Im3zyvuypazRCL0P9r8X -->                    
                 </li>
                 <li class="nav-item d-xl-none ps-3 d-flex align-items-center">
                     <a href="javascript:;" class="nav-link text-body p-0" id="iconNavbarSidenav">
@@ -225,12 +270,12 @@
                         </div>
                     </a>
                 </li>
-                <li class="nav-item px-3 d-flex align-items-center">
+                {{-- <li class="nav-item px-3 d-flex align-items-center">
                     <a href="javascript:;" class="nav-link text-body p-0">
                         <i class="fa fa-cog fixed-plugin-button-nav cursor-pointer"></i>
                     </a>
-                </li>
-                <li class="nav-item dropdown pe-2 d-flex align-items-center">
+                </li>  --}}
+                {{-- <li class="nav-item dropdown pe-2 d-flex align-items-center">
                     <a href="javascript:;" class="nav-link text-body p-0" id="dropdownMenuButton"
                         data-bs-toggle="dropdown" aria-expanded="false">
                         <i class="fa fa-bell cursor-pointer"></i>
@@ -255,6 +300,7 @@
                                 </div>
                             </a>
                         </li>
+
                         <li class="mb-2">
                             <a class="dropdown-item border-radius-md" href="javascript:;">
                                 <div class="d-flex py-1">
@@ -310,7 +356,7 @@
                                     </div>
                                 </div>
                             </a>
-                        </li>
+                        </li> --}}
                     </ul>
                 </li>
             </ul>

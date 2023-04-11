@@ -121,7 +121,7 @@
                                 <form method="POST" action=" {{ route('login') }} " class="text-start">
                                     @csrf
 
-                                    <div class="input-group input-group-outline mt-3">
+                                    <div class="input-group input-group-outline mt-3 @error('email') is-invalid focused is-focused @endif">
                                         <label class="form-label">{{ __('Email') }}</label>
                                         <input 
                                             type="email" 
@@ -138,7 +138,7 @@
                                         </span>
                                     @enderror 
 
-                                    <div class="input-group input-group-outline mt-3">
+                                    <div class="input-group input-group-outline mt-3 @error('email') is-invalid focused is-focused @endif">
                                         <label class="form-label">{{ __('Password') }}</label>
                                         <input 
                                             type="password" 
@@ -147,6 +147,12 @@
                                             id="password"
                                         />
                                     </div>
+
+                                    @error('password')
+                                        <span class="text-danger inputerror">
+                                            {{ $message }}
+                                        </span>
+                                    @enderror 
 
                                     {{-- <div class="form-check form-switch d-flex align-items-center my-3">
                                     <input class="form-check-input" type="checkbox" id="rememberMe">
