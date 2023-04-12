@@ -19,6 +19,10 @@ Route::get('/', function () {
     return view('auth.md2-login');
 });
 
+Route::get('inicio', function(){
+    return view('inicio');
+});
+
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),

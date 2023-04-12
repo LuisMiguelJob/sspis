@@ -12,9 +12,8 @@ class UserController extends Controller
      */
     public function index()
     {
-        //$users = User::all();
-        
-        return view('users.index');
+        $users = User::all(); // temporal, luego poner con auth
+        return view('users.index', compact('users'));
     }
 
     /**
@@ -22,7 +21,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        return view('users.form');
     }
 
     /**
