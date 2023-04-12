@@ -19,10 +19,6 @@ Route::get('/', function () {
     return view('auth.md2-login');
 });
 
-Route::get('inicio', function(){
-    return view('inicio');
-});
-
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
@@ -31,8 +27,12 @@ Route::middleware([
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
+
+    Route::get('inicio', function(){
+        return view('inicio');
+    });
 });
 
-Route::resource('users', UserController::class);
-Route::resource('projects', ProjectController::class); // Todavia no hecho nada, nomas dos vistas de prueba
+Route::resource('users', UserController::class)->middleware('auth');
+Route::resource('projects', ProjectController::class)->middleware('auth'); // Todavia no hecho nada, nomas dos vistas de prueba
 

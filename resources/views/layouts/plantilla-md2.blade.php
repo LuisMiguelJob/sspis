@@ -251,13 +251,26 @@
                         </div>
                     </div> --}}
                     {{--  --}}
-                    
-                    <a href="javascript:;" class="nav-link text-body font-weight-bold px-4">
-                        <i class="fa fa-user me-sm-1"></i>
-                        <span wire:id="Im3zyvuypazRCL0P9r8X" wire:initial-data="{&quot;fingerprint&quot;:{&quot;id&quot;:&quot;Im3zyvuypazRCL0P9r8X&quot;,&quot;name&quot;:&quot;auth.logout&quot;,&quot;locale&quot;:&quot;en&quot;,&quot;path&quot;:&quot;dashboard&quot;,&quot;method&quot;:&quot;GET&quot;,&quot;v&quot;:&quot;acj&quot;},&quot;effects&quot;:{&quot;listeners&quot;:[]},&quot;serverMemo&quot;:{&quot;children&quot;:[],&quot;errors&quot;:[],&quot;htmlHash&quot;:&quot;cbfe6cf3&quot;,&quot;data&quot;:[],&quot;dataMeta&quot;:[],&quot;checksum&quot;:&quot;12442f9afa6ac5059024d1844a4497c3ddc5380aae94cbb9ee1f7d170349d994&quot;}}" wire:click="destroy" class="d-sm-inline d-none">
-                            Cerrar sesion
-                        </span>
-                    </a>
+                                    
+                    <form method="POST" action="{{ route('logout') }}">
+                    @csrf
+                        <a href="route('logout')" onclick="event.preventDefault(); this.closest('form').submit();" class="nav-link text-body font-weight-bold px-4">
+                            <i class="fa fa-user me-sm-1"></i>
+                            <span wire:id="Im3zyvuypazRCL0P9r8X" wire:initial-data="{&quot;fingerprint&quot;:{&quot;id&quot;:&quot;Im3zyvuypazRCL0P9r8X&quot;,&quot;name&quot;:&quot;auth.logout&quot;,&quot;locale&quot;:&quot;en&quot;,&quot;path&quot;:&quot;dashboard&quot;,&quot;method&quot;:&quot;GET&quot;,&quot;v&quot;:&quot;acj&quot;},&quot;effects&quot;:{&quot;listeners&quot;:[]},&quot;serverMemo&quot;:{&quot;children&quot;:[],&quot;errors&quot;:[],&quot;htmlHash&quot;:&quot;cbfe6cf3&quot;,&quot;data&quot;:[],&quot;dataMeta&quot;:[],&quot;checksum&quot;:&quot;12442f9afa6ac5059024d1844a4497c3ddc5380aae94cbb9ee1f7d170349d994&quot;}}" wire:click="destroy" class="d-sm-inline d-none">
+                                Cerrar sesion
+                            </span>
+                        </a>
+                    </form>
+
+                    {{-- Ejemplo de codigo para cerrar sesion, (valioso)
+                        <form method="POST" action="{{ route('logout') }}">
+                        @csrf
+              
+                        <x-dropdown-link :href="route('logout')" onclick="event.preventDefault(); this.closest('form').submit();">
+                            {{ __('Log Out') }}
+                        </x-dropdown-link>
+                    </form>
+                     --}}
                     
 <!-- Livewire Component wire-end:Im3zyvuypazRCL0P9r8X -->                    
                 </li>
