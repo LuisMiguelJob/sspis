@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PhaseController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -34,5 +35,6 @@ Route::middleware([
 });
 
 Route::resource('users', UserController::class)->middleware('auth');
-Route::resource('projects', ProjectController::class)->middleware('auth'); // Todavia no hecho nada, nomas dos vistas de prueba
+Route::resource('projects', ProjectController::class)->middleware('auth');
+Route::resource('phases', PhaseController::class)->middleware('auth'); // aqui dejo de una vez el controlador de phases 
 
