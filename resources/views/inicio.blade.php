@@ -2,7 +2,7 @@
 
 @section('content')
     <h2>
-      Blank
+      Inicio "No modificar esta ruta porfa"
     </h2>
 
     <a

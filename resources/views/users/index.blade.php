@@ -11,11 +11,11 @@
             </h4> 
         </div>
     </div>
-    <div class=" me-3 my-3 text px-3">
+    {{-- <div class=" me-3 my-3 text px-3"> // implementar register a parte, pero primero probar asi solo para ver q
         <a class="btn bg-gradient-dark mb-0" href=" {{ route('users.create') }} "><i class="material-icons text-sm">add</i>&nbsp;&nbsp;Add New
           User
         </a>
-    </div>
+    </div> --}}
     <div class="card-body px-0 pb-2">
         <div class="table-responsive p-0">
             <table class="table align-items-center mb-0">

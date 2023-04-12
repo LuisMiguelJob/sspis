@@ -11,16 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('projects', function (Blueprint $table) {
+        Schema::create('phases', function (Blueprint $table) {
             $table->id();
-
+            
             $table->string('name');
             $table->double('progress');
-            $table->string('description');
-            $table->date('start_date');
+            $table->date('initial_date');
             $table->date('final_date');
+            $table->text('description');
 
-            $table->foreignId('user_id')->constrained(); // se relaciona con la tabla users // este es el lider_id, lo pongo asi porque no me acuerdo como personalizar esto
+            $table->foreignId('project_id')->constrained()->cascadeOnDelete();
 
             $table->timestamps();
         });
@@ -31,6 +31,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('projects');
+        Schema::dropIfExists('phases');
     }
 };
