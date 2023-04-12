@@ -6,7 +6,9 @@ Informacion del proyecto "Aprender"
 
 3.- php artisan jetstream:install livewire --teams
 
-4.- npm install
+4.- composer install
+
+4.5.- npm install
 
 5.- npm run dev
 
