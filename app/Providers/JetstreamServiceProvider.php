@@ -41,6 +41,10 @@ class JetstreamServiceProvider extends ServiceProvider
         Fortify::loginView(function () { // Este se pone si se pone otra vista para login
             return view('auth.md2-login');
         });
+
+        Fortify::registerView(function() { // Esta funcion es necesaria para cambiar la vista de registro de usuario
+            return view('auth.md2-register');
+        });
     }
 
     /**

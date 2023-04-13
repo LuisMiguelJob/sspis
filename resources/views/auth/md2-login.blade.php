@@ -138,7 +138,7 @@
                                         </span>
                                     @enderror 
 
-                                    <div class="input-group input-group-outline mt-3 @error('email') is-invalid focused is-focused @endif">
+                                    <div class="input-group input-group-outline mt-3 @error('password') is-invalid focused is-focused @endif">
                                         <label class="form-label">{{ __('Password') }}</label>
                                         <input 
                                             type="password" 
@@ -166,12 +166,12 @@
                                         </button>
                                     </div>
 
-                                    {{-- <p class="mt-4 text-sm text-center">
-                                        Don't have an account?
-                                    <a href=" {{ route('login') }} " class="text-primary text-gradient font-weight-bold">Sign up</a>
+                                    <p class="mt-4 text-sm text-center">
+                                        No tienes una cuenta?
+                                    <a href=" {{ route('register') }} " class="text-primary text-gradient font-weight-bold">Registro/Sign up</a>
                                     </p>
                                     
-                                    <p class="text-sm text-center">
+                                    {{-- <p class="text-sm text-center">
                                         Forgot your password? Reset your password
                                     <a href=" {{ route('login') }} " class="text-primary text-gradient font-weight-bold">here</a>
                                     </p> --}}
