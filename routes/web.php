@@ -16,9 +16,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
+/* Route::get('/', function () {
     return view('auth.md2-login');
-});
+}); */
 
 Route::middleware([
     'auth:sanctum',
@@ -34,6 +34,14 @@ Route::middleware([
     });
 });
 
+Route::get('/', function () { // Arregle un error, cuando quieres ir a la url "sspis.test" sin sesion, te retornara a la vista de login
+    if (auth()->check()) {    // pero si ya tienes sesion iniciada y quieres ir a "sspis.test" entonces te retorna a la vista de inicio
+        return view('/inicio');
+    }
+        return view('auth.md2-login');
+    })->name('dashboard');
+
+Route::post('program/users/{user}/updatePassword', [UserController::class, 'updatePassword'])->name('users.updatePassword');
 Route::resource('users', UserController::class)->middleware('auth');
 Route::resource('projects', ProjectController::class)->middleware('auth');
 Route::resource('phases', PhaseController::class)->middleware('auth'); // aqui dejo de una vez el controlador de phases 

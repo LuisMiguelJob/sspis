@@ -61,15 +61,24 @@
                               <span class="text-secondary text-x font-weight-bold">En proceso</span>
                           </td>
                           <td class="align-middle">
-                              <a rel="tooltip" class="btn btn-success btn-link" href="" data-original-title="" title="">
-                                  <i class="material-icons">edit</i>
-                                  <div class="ripple-container"></div>
-                              </a>
+                            <a rel="tooltip" class="btn btn-primary btn-link" href=" {{ route('users.edit', $user->id) }} " data-original-title="" title="">
+                                editar
+                                <div class="ripple-container"></div>
+                            </a>
+                            <a rel="tooltip" class="btn btn-primary btn-link" href="" data-original-title="" title="">
+                                Borrar
+                                <div class="ripple-container"></div>
+                            </a>
+
+                              {{-- <a rel="tooltip" class="btn btn-success btn-link" href="" data-original-title="" title="">
+                                <i class="material-icons">edit</i>
+                                <div class="ripple-container"></div>
+                                </a> --}}
                               
-                              <button type="button" class="btn btn-danger btn-link" data-original-title="" title="">
+                              {{-- <button type="button" class="btn btn-danger btn-link" data-original-title="" title="">
                               <i class="material-icons">close</i>
-                              <div class="ripple-container"></div>
-                          </button>
+                              <div class="ripple-container"></div> 
+                                    </button>  --}}
                           </td>
                       </tr>
                     @endforeach

@@ -2,7 +2,7 @@
 
 @section('content')
     <h2>
-      Inicio "No modificar esta ruta porfa"
+      Inicio "No modificar esta ruta porfa" User: {{ Auth::user()->name }}
     </h2>
 
     <a
@@ -10,4 +10,5 @@
     >
       Users
     </a>
+
 @endsection
