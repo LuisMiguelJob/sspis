@@ -6,7 +6,7 @@ use App\Models\Phase;
 use App\Models\Task;
 use Illuminate\Http\Request;
 
-class PhaseController extends Controller
+class TaskController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -27,18 +27,18 @@ class PhaseController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request){//Store de la fase sin tarea, una vez creada te redirige a la página para ver los detalles de ese proyecto con la nueva fase
-        $phase = new Phase();
-        $phase->name = $request->name;
-        $phase->progress = 0;
-        $phase->description = $request->description;
-        $phase->initial_date = '2020-01-01 01:00:00';
-        $phase->final_date = '2020-01-01 01:00:00';
-        $phase->project_id = $request->project_id;
-        $phase->save();
-        $phases = Phase::where('project_id', $request->id)->get();
-        $tasks = Task::where('project_id', $request->id)->get();
-        return redirect()->route('projects.show', [$request->project_id, $phases, $tasks]);
+    public function store(Request $request){//Store de la tarea, una vez creada te redirige a la página para ver los detalles de ese proyecto con la nueva tarea
+        $task = new Task();
+        $task->name = $request->name;
+        $task->progress = 0;
+        $task->description = $request->description;
+        $task->comments = "";
+        $task->initial_date = '2020-01-01 01:00:00';
+        $task->final_date = '2020-01-01 01:00:00';
+        $task->phase_id = $request->phase_id;
+        $task->project_id = $request->project_id;
+        $task->save();
+        return redirect()->route('projects.show', [$task->project_id, $task->phase_id, $task]);
         
     }
 

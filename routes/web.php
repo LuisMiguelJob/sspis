@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\PhaseController;
 use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\TaskController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -34,7 +35,21 @@ Route::middleware([
     });
 });
 
+Route::controller(ProjectController::class)->group(function(){//Controller para crear y moverse entre los detalles del proyecto (el show muestra las fases y las tareas)
+    Route::get('projects', 'index')->name('projects.index');//Pagina para ver los proyectos
+    Route::get('projects/create_project', 'create_project')->name('projects.create_project');//Para crear los proyectos
+    Route::get('projects/{id}', 'show')->name('projects.show');//Para ver un proyecto
+    Route::post('projects', 'store')->name('projects.store');//Para guardar un proyecto
+});
+
+Route::controller(PhaseController::class)->group(function(){//Controller para crear fases del proyecto
+    Route::post('projects/phases', 'store')->name('projects.phases.store');
+});
+
+Route::controller(TaskController::class)->group(function(){//Controller para crear tareas de la fase del proyecto
+    Route::post('projects/phases/tasks', 'store')->name('projects.phases.tasks.store');
+});
+
 Route::resource('users', UserController::class)->middleware('auth');
-Route::resource('projects', ProjectController::class)->middleware('auth');
-Route::resource('phases', PhaseController::class)->middleware('auth'); // aqui dejo de una vez el controlador de phases 
+
 

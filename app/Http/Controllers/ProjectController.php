@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Project;
+use App\Models\Phase;
+use App\Models\Task;
 use Illuminate\Http\Request;
 
 class ProjectController extends Controller
@@ -12,40 +14,47 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        return view('projects.index');
+        $proyecto = Project::orderBy('id', 'desc')->paginate();
+        return view('projects.index', compact('proyecto'));
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
-    {
-        //
+    public function create_project(){
+        return view('projects.create_project');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
-    {
-        //
+    public function show($id){//este show te lleva a la pagina para ver TODOS los detalles del proyecto; en caso de crear uno, como no tiene fase, se va como paremetro 0, y no muestrar ningúna fase, pq no hay
+        $project = Project::find($id);
+        $phases = Phase::where('project_id', $id)->get();
+        if(sizeof($phases) > 0)
+            $tasks = Task::where('project_id', $id)->get();
+        else
+            $tasks = Task::where('phase_id', 0)->get();
+        return view('projects.show', ['project'=>$project], compact('phases', 'tasks'));
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Project $project)
-    {
-        return view('project.show');
+    public function store(Request $request){//Store del proyecto sin fase ni tarea, una vez creado te redirige a la página para ver los detalles de ese proyecto
+        $project = new Project();
+        $project->name = $request->name;
+        $project->progress = 0;
+        $project->description = $request->description;
+        $project->start_date = '2020-01-01 01:00:00';
+        $project->final_date = '2020-01-01 01:00:00';
+        $project->user_id = $request->user_id;
+        $project->save();
+        $phases = Phase::where('project_id', $request->id)->get();
+        if(sizeof($phases) > 0)
+            $tasks = Task::where('project_id', $request->id)->get();
+        else
+            $tasks = Task::where('phase_id', 0)->get();
+        return redirect()->route('projects.show', [$project, $phases, $tasks]);//Los últimos 3 parametros, son para tomar el id del proyecto, las fases correspondientes al proceso e igual con las tareas; para ir a la vista de ese proyecto, la que está arriba de este método
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Project $project)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.
