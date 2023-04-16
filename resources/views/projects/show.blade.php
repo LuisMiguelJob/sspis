@@ -20,8 +20,8 @@
                 @endforeach
                 <form action="{{route('projects.phases.tasks.store')}}" method="POST"><!--Form para agregar la tarea-->
                     @csrf
-                    <button type="button" onclick="createTask()">Agregar tarea</button>
-                    <div id="Ptask" style="background-color: rgb(44, 159, 31); marging: 10px; position: relative; width:50%; display: none;">
+                    <button type="button" onclick="createTask({{$phase->id}})">Agregar tarea</button>
+                    <div id="Ptask{{$phase->id}}" style="background-color: rgb(44, 159, 31); marging: 10px; position: relative; width:50%; display: none;">
                         <h2>Tarea <span id="PnTask"></span></h2><br>
                         <label>Nombre de la tarea:</label><br>
                         <input type="text" name="name" value=""><br>
@@ -65,22 +65,24 @@
     <script type="text/javascript">
         var i = 0;
         var x = 0;
-        
-        function createPhase() {
-            document.getElementById("PnFase").innerHTML = 1;
-            document.getElementById("Pfase").style.display = "block";
-        }
-
-        function createTask() {
-            document.getElementById("PnTask").innerHTML = 1;
-            document.getElementById("Ptask").style.display = "block";
-        }
 
         function showTasks(task) {
             if(document.getElementById("task "+task).style.display == "block")
                 document.getElementById("task "+task).style.display = "none";
             else
                 document.getElementById("task "+task).style.display = "block";
+        }
+
+        function createTask(task) {
+            if(document.getElementById("Ptask"+task).style.display == "block")
+                document.getElementById("Ptask"+task).style.display = "none";
+            else
+                document.getElementById("Ptask"+task).style.display = "block";
+        }
+        
+        function createPhase() {
+            document.getElementById("PnFase").innerHTML = 1;
+            document.getElementById("Pfase").style.display = "block";
         }
 
     </script>
