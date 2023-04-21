@@ -1,10 +1,12 @@
-Informacion del proyecto "Aprender"
+Informacion del proyecto "sspis"
 
-1.- Instalacion de laravel 9.0 => "laravel new aprender"
+1.- Instalacion de laravel 10.0 => "laravel new sspis"
 
 2.- Instalacion de jetstream (control de usuarios, autenticacion) => "composer require laravel/jetstream"
 
 3.- php artisan jetstream:install livewire --teams
+
+Si clonas el repositorio, empezar desde aqui
 
 4.- composer install
 
@@ -15,6 +17,8 @@ Informacion del proyecto "Aprender"
 5.- configurar .env
 
 6.- php artisan migrate
+
+7.- php artisan db:seed
 
 Nota. en caso de tener algun error, ejecutar el siguiente comando:
     php artisan key:generate
