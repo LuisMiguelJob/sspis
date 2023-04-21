@@ -18,7 +18,7 @@
                         Tarea: {{($task->name)}} <br>
                     @endif
                 @endforeach
-                <form action="{{route('projects.phases.tasks.store')}}" method="POST"><!--Form para agregar la tarea-->
+                <form action="{{route('tasks.store')}}" method="POST"><!--Form para agregar la tarea-->
                     @csrf
                     <button type="button" onclick="createTask({{$phase->id}})">Agregar tarea</button>
                     <div id="Ptask{{$phase->id}}" style="background-color: rgb(44, 159, 31); marging: 10px; position: relative; width:50%; display: none;">
@@ -43,7 +43,7 @@
             </div>
         @endforeach
 
-    <form name="myform" action="{{route('projects.phases.store')}}" method="POST"><!--Form para agregar una nueva fase-->
+    <form name="myform" action="{{route('phases.store')}}" method="POST"><!--Form para agregar una nueva fase-->
         @csrf
         <button type="button" onclick="createPhase()">Agregar fase</button>
         <div id="Pfase" style="background-color: cornflowerblue; marging: 10px; position: relative; width:50%; display: none;">
