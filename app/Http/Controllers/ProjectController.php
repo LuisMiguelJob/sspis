@@ -21,8 +21,8 @@ class ProjectController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create_project(){
-        return view('projects.create_project');
+    public function create(){
+        return view('projects.create');
     }
 
     /**

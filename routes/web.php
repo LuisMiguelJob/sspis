@@ -35,21 +35,12 @@ Route::middleware([
     });
 });
 
-Route::controller(ProjectController::class)->group(function(){//Controller para crear y moverse entre los detalles del proyecto (el show muestra las fases y las tareas)
-    Route::get('projects', 'index')->name('projects.index');//Pagina para ver los proyectos
-    Route::get('projects/create_project', 'create_project')->name('projects.create_project');//Para crear los proyectos
-    Route::get('projects/{id}', 'show')->name('projects.show');//Para ver un proyecto
-    Route::post('projects', 'store')->name('projects.store');//Para guardar un proyecto
-});
+Route::resource('users', UserController::class);
 
-Route::controller(PhaseController::class)->group(function(){//Controller para crear fases del proyecto
-    Route::post('projects/phases', 'store')->name('projects.phases.store');
-});
+Route::resource('projects', ProjectController::class);//Controller moverse entre la información del proyecto (index, show y create)
+Route::get('projects/{id}', [ProjectController::class, 'show'])->name('projects.show');//Para mostrar un proyectos con su info.
+Route::post('projects', [ProjectController::class, 'store'])->name('projects.store');//Para crear los proyectos
 
-Route::controller(TaskController::class)->group(function(){//Controller para crear tareas de la fase del proyecto
-    Route::post('projects/phases/tasks', 'store')->name('projects.phases.tasks.store');
-});
+Route::post('projects/phases', [PhaseController::class, 'store'])->name('projects.phases.store');//Para crear las fases de un proyecto (no se usa el index o show ya que esa info. se ve desde el show del proyecto)
 
-Route::resource('users', UserController::class)->middleware('auth');
-
-
+Route::post('projects/phases/tasks', [TaskController::class, 'store'])->name('projects.phases.tasks.store');//Para crear las tareas de la fase de un proyecto (mismo caso de arriba)
