@@ -9,29 +9,28 @@
 
 
 <form name="myform" action="{{route('projects.store')}}" method="POST">
-    <button type="submit">Crear proyecto</button>
-
     @csrf
-
-    <label>Nombre del proyecto: 
+    <label>Nombre del proyecto:<br> 
         <input type="text" name="name" value="{{old('name')}}">
     </label><br>
     @error('name')
     <br><small>*{{$message}}</small>
     @enderror
-
+    <div style="display:none">
     <label>ID del lider del proyecto:
         <input type="text" name="user_id" value="{{$id = Auth::id()}}">
     </label>
+    </div>
     @error('user_id')
     <br><small>*{{$message}}</small>
     @enderror
     <br><br>
-    <label>Descripción del proyecto: 
+    <label>Descripción del proyecto: <br>
         <textarea name="description" rows="5">{{old('description')}}</textarea><br>
     </label><br>
     @error('name')
     <br><small>*{{$message}}</small>
     @enderror
-
+    <button type="submit">Crear proyecto</button>
+</form>
 @endsection
