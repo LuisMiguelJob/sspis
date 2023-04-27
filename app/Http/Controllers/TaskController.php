@@ -33,8 +33,8 @@ class TaskController extends Controller
         $task->progress = 0;
         $task->description = $request->description;
         $task->comments = "";
-        $task->initial_date = '2020-01-01 01:00:00';
-        $task->final_date = '2020-01-01 01:00:00';
+        $task->initial_date = $request->initial_date;
+        $task->final_date = $request->final_date;
         $task->phase_id = $request->phase_id;
         $task->project_id = $request->project_id;
         $task->save();

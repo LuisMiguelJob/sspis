@@ -32,8 +32,8 @@ class PhaseController extends Controller
         $phase->name = $request->name;
         $phase->progress = 0;
         $phase->description = $request->description;
-        $phase->initial_date = '2020-01-01 01:00:00';
-        $phase->final_date = '2020-01-01 01:00:00';
+        $phase->initial_date = $request->initial_date;
+        $phase->final_date = $request->final_date;
         $phase->project_id = $request->project_id;
         $phase->save();
         $phases = Phase::where('project_id', $request->id)->get();
