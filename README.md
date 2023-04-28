@@ -1,8 +1,11 @@
 Informacion del proyecto "sspis"
 
 1.- Instalacion de laravel 10.0 => "laravel new sspis"
+
 2.- Instalacion de jetstream (control de usuarios, autenticacion) => "composer require laravel/jetstream"
+
 3.- php artisan jetstream:install livewire --teams
+
 4.- composer require spatie/laravel-permission (roles en laravel)
 
 Si clonas el repositorio, empezar desde aqui:
