@@ -1,24 +1,26 @@
 Informacion del proyecto "sspis"
 
 1.- Instalacion de laravel 10.0 => "laravel new sspis"
-
 2.- Instalacion de jetstream (control de usuarios, autenticacion) => "composer require laravel/jetstream"
-
 3.- php artisan jetstream:install livewire --teams
+4.- composer require spatie/laravel-permission (roles en laravel)
 
-Si clonas el repositorio, empezar desde aqui
+Si clonas el repositorio, empezar desde aqui:
+    Nota:
+    - En este punto te recomiendo usar Visual Studio Code para clonar el repositorio
+    - una vez hecho, recomendable usar la consola de comandos que nos da Laragon
 
-4.- composer install
+5.- composer install (Instala librerias)
 
-4.5.- npm install
+6.- npm install (Instala librerias)
 
-5.- npm run dev
+7.- npm run dev
 
-5.- configurar .env
+8.- configurar .env (Este archivo hace contacto con tu base de datos, llenalo de manera correcta)
 
-6.- php artisan migrate
+9.- php artisan migrate (Crea las tablas especificadas en las migraciones del proyecto)
 
-7.- php artisan db:seed
+10.- php artisan db:seed (Agrega registros ya especificados en el seeder global)
 
 Nota. en caso de tener algun error, ejecutar el siguiente comando:
     php artisan key:generate
