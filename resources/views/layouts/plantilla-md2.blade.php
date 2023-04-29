@@ -76,8 +76,9 @@
                     </div>
                 </div>
             </li> --}}
-
-            <li class="nav-item mt-3">
+            
+            {{-- Apartado laravel examples y dos botones, desactivar si se quiere ver --}}
+            {{-- <li class="nav-item mt-3">
                 <h6 class="ps-4 ms-2 text-uppercase text-xs text-white font-weight-bolder opacity-8">Laravel examples</h6>
             </li>
             <li class="nav-item">
@@ -97,38 +98,38 @@
                     </div>
                     <span class="nav-link-text ms-1">User Management</span>
                 </a>
-            </li>
+            </li> --}}
             <li class="nav-item mt-3">
-                <h6 class="ps-4 ms-2 text-uppercase text-xs text-white font-weight-bolder opacity-8">Pages</h6>
+                <h6 class="ps-4 ms-2 text-uppercase text-xs text-white font-weight-bolder opacity-8">Categorias</h6>
             </li>
             <li class="nav-item">
                 <a class="nav-link text-white{{-- active bg-gradient-primary --}} "
-                    href=" {{ route('login') }} ">
+                    href=" {{ route('inicio') }} ">
                     <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                         <i class="material-icons opacity-10">dashboard</i>
                     </div>
-                    <span class="nav-link-text ms-1">Dashboard</span>
+                    <span class="nav-link-text ms-1">Inicio</span>
                 </a>
             </li>
             <li class="nav-item">
                 <a class="nav-link text-white  "
-                    href=" {{ route('login') }} ">
+                    href=" {{ route('users.index') }} ">
                     <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                         <i class="material-icons opacity-10">table_view</i>
                     </div>
-                    <span class="nav-link-text ms-1">Tables</span>
+                    <span class="nav-link-text ms-1">Users</span>
                 </a>
             </li>
             <li class="nav-item">
                 <a class="nav-link text-white   "
-                    href=" {{ route('login') }} ">
+                    href=" {{ route('projects.index') }} ">
                     <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                         <i class="material-icons opacity-10">receipt_long</i>
                     </div>
-                    <span class="nav-link-text ms-1">Billing</span>
+                    <span class="nav-link-text ms-1">Proyectos</span>
                 </a>
             </li>
-            <li class="nav-item">
+            {{-- <li class="nav-item">
                 <a class="nav-link text-white   "
                     href=" {{ route('login') }} ">
                     <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
@@ -182,7 +183,7 @@
                     </div>
                     <span class="nav-link-text ms-1">Sign Up</span>
                 </a>
-            </li>
+            </li> --}}
         </ul>
     </div>
     <div class="sidenav-footer position-absolute w-100 bottom-0 ">

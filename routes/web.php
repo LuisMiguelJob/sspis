@@ -32,7 +32,7 @@ Route::middleware([
 
     Route::get('inicio', function(){
         return view('inicio');
-    });
+    })->name('inicio');
 });
 
 Route::get('/', function () { // Arregle un error, cuando quieres ir a la url "sspis.test" sin sesion, te retornara a la vista de login
