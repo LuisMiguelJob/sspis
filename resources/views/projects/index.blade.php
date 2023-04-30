@@ -4,7 +4,7 @@
 
 
 @section('content')
-<div id="Create_Project" style="display: none; text-align: center; position: absolute; width: 90%; height: 80%; background-color: gray;">
+<div id="Create_Project" style="left:50%; transform:translate(-50%, 0%); display: none; text-align: center; position: fixed; width:60%; height:80%; background-color: gray;">
     <!-- Este div originalmente era del createProject, pero desde que solo necesitamos 3 inputs, lo agregué como una ventana dentro de la página del show -->
     <a onclick="createProject()">volver a los proyectos</a><br><br>
     <form name="myform" action="{{route('projects.store')}}" method="POST">

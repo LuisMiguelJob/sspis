@@ -74,6 +74,12 @@
                 </div>
             @endforeach
             <button type="button" onclick="createPhase()" style="margin-top: 10px">Agregar fase</button>
+            
+            <form action="{{route('projects.destroy', $project)}}" method="POST"><!-- it is inside a forma cause html doesnt recognize the delete methos, only get and post, thats why its here and we use the 2 next lines !-->
+                @csrf
+                @method('delete')
+                <button type="submit">Eliminar</button>
+            </form>
     </div>
     
     <script type="text/javascript">
