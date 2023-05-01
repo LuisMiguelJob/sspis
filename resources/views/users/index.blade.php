@@ -58,7 +58,7 @@
                               </p>
                           </td>
                           <td class="align-middle ">
-                              <span class="text-secondary text-x font-weight-bold">En proceso</span>
+                              <span class="text-secondary text-x font-weight-bold"> {{ $user->roles->pluck('name')->first() }} </span>
                           </td>
                           <td class="align-middle">
                             <a rel="tooltip" class="btn btn-primary btn-link" href=" {{ route('users.edit', $user->id) }} " data-original-title="" title="">

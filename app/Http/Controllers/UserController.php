@@ -14,6 +14,8 @@ class UserController extends Controller
     private $rulesPassword;
     public function __construct()
     {
+        $this->middleware('can:users.index');
+        
         $this->rules = [
             'name' => ['required', 'string', 'min:5', 'max:255'],
         ];

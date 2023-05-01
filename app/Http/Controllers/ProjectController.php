@@ -7,15 +7,32 @@ use App\Models\Phase;
 use App\Models\Task;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ProjectController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('can:projects.index');
+    }
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $proyecto = Project::orderBy('id', 'desc')->paginate();
+        // con esto retornamos los proyectos que el lider ha creado
+        $rol = Auth::user()->roles->pluck('name')->first();
+        if($rol == "Leader"){
+            $proyecto = Project::where('user_id', Auth::id())->get();
+        }
+
+        if($rol == "Worker"){
+            $proyecto = Auth::user()->projects;
+        }
+
+        //$proyecto = Project::orderBy('id', 'desc')->paginate();
         return view('projects.index', compact('proyecto'));
     }
 
@@ -49,6 +66,9 @@ class ProjectController extends Controller
         $project->final_date = '2020-01-01 01:00:00';
         $project->user_id = $request->user_id;
         $project->save();
+
+        //$project->users()->attach($request->user_id); // test, favor de quitar si da errores
+
         $phases = Phase::where('project_id', $request->id)->get();
         if(sizeof($phases) > 0)
             $tasks = Task::where('project_id', $request->id)->get();

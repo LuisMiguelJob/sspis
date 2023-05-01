@@ -14,7 +14,25 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        User::factory(10)->withPersonalTeam()->create();
+        $password = "password";
+        User::create([
+            'name' => 'Admin Proyecto SSPIS',
+            'email' => 'admin@gmail.com',
+            'password' => Hash::make($password),
+        ])->assignRole('Administrator');
+
+        User::create([
+            'name' => 'Leader Proyecto SSPIS',
+            'email' => 'leader@gmail.com',
+            'password' => Hash::make($password),
+        ])->assignRole('Leader');
         
+        User::create([
+            'name' => 'Worker Proyecto SSPIS',
+            'email' => 'worker@gmail.com',
+            'password' => Hash::make($password),
+        ])->assignRole('Worker');
+        
+        //User::factory(10)->withPersonalTeam()->create();
     }
 }
