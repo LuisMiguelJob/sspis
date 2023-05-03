@@ -94,4 +94,45 @@ class ProjectController extends Controller
         $project->delete();
         return redirect()->route('projects.index');
     }
+
+    /* 
+    * 
+    */
+
+    public function workers(Project $project)
+    { 
+        //$users->projects()->where('id', $project->id)->exist();
+        $id = $project->id;
+
+        // Usuarios de tipo Worker
+        $users = User::whereHas("roles", function($q){ $q->where("name", "Worker"); })->get();
+
+        // Usuarios de tipo Worker pero tomando en cuenta si estan en el proyecto
+        $usersInProject = User::whereHas("roles", function($q){ $q->where("name", "Worker"); })->whereHas('projects', function ($q) use ($id) {$q->where('project_id', '=', $id); })->get();
+
+        // Usuarios que no estan en el proyecto
+        $usersWithoutProject = $users->diff($usersInProject);
+
+        return view('projects.workers', compact('project', 'usersInProject', 'usersWithoutProject'));
+    }
+
+    /* 
+    * Agregar un trabajador a un proyecto
+    */
+
+    public function addWorker(Request $request, Project $project)
+    { 
+        $project->users()->attach($request->worker_id);
+        return redirect()->route('projects.workers', $project);
+    }
+
+    /* 
+    * Eliminar un trabajador a un proyecto
+    */
+
+    public function removeWorker(Request $request, Project $project, User $user)
+    { 
+        $user->projects()->detach($project->id);
+        return redirect()->route('projects.workers', $project);
+    }
 }

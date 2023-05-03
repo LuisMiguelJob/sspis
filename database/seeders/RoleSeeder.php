@@ -35,6 +35,7 @@ class RoleSeeder extends Seeder
         Permission::create(['name' => 'projects.create'])->assignRole($roleLider); // usado
         Permission::create(['name' => 'projects.edit'])->assignRole($roleLider);
         Permission::create(['name' => 'projects.destroy'])->assignRole($roleLider);
+        Permission::create(['name' => 'projects.workers'])->assignRole($roleLider); // usado
 
         // Acciones por el momento que puede ejecutar un lider
         /* Permission::create(['name' => 'tareas.index'])->syncRoles([$roleLider, $roleEmpleado]);

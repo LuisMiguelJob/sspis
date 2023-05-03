@@ -20,7 +20,7 @@ return new class extends Migration
             $table->date('start_date');
             $table->date('final_date');
 
-            $table->foreignId('user_id')->constrained(); // se relaciona con la tabla users // este es el lider_id, lo pongo asi porque no me acuerdo como personalizar esto
+            $table->foreignId('user_id')->constrained()->onDelete('cascade'); // se relaciona con la tabla users // este es el lider_id, lo pongo asi porque no me acuerdo como personalizar esto
 
             $table->timestamps();
         });

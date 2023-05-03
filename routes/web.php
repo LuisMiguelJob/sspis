@@ -42,8 +42,11 @@ Route::get('/', function () { // Arregle un error, cuando quieres ir a la url "s
         return view('auth.md2-login');
     })->name('dashboard');
 
-Route::post('program/users/{user}/updatePassword', [UserController::class, 'updatePassword'])->name('users.updatePassword');
-Route::resource('users', UserController::class)->middleware('auth');
+Route::post('program/users/{user}/updatePassword', [UserController::class, 'updatePassword'])->name('users.updatePassword')->middleware('auth');
+Route::resource('users', UserController::class)->middleware('auth')->middleware('auth');
+Route::get('projects/{project}/workers', [ProjectController::class, 'workers'])->name('projects.workers')->middleware('auth');
+Route::post('projects/{project}/addWorker', [ProjectController::class, 'addWorker'])->name('projects.addWorker')->middleware('auth');
+Route::get('projects/{project}/{user}/removeWorker', [ProjectController::class, 'removeWorker'])->name('projects.removeWorker')->middleware('auth');
 Route::resource('projects', ProjectController::class)->middleware('auth');
 Route::resource('phases', PhaseController::class)->middleware('auth');
 Route::resource('tasks', TaskController::class)->middleware('auth');

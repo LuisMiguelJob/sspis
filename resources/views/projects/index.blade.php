@@ -35,15 +35,24 @@
 </div>
 
 <h2>Projects</h2>
-    <a onclick="createProject()">Crear proyecto</a><!-- este link abre la "ventana para crear un proyecto" -->
+    @can('projects.create')
+        <a onclick="createProject()">Crear proyecto</a><!-- este link abre la "ventana para crear un proyecto" -->    
+    @endcan
+
     <div id="container" style="display: flex; flex-wrap: wrap;">
         @foreach ($proyecto as $proyectos)<!--Por cada proyecto que exista del lider se crea como una tarjetita-->
         <a href="{{route('projects.show', $proyectos->id)}}">
             <div style="width: 250px; height: 250px; background-color: gray; margin: 10px; padding: 5px">
                 <h3>{{$proyectos->name}}</h3><br>
                 {{$proyectos->description}}<br>
+                @can('projects.workers')
+                    <a href="{{route('projects.workers', $proyectos)}}">Agregar trabajadores</a>    
+                @endcan
+                
+
             </div>
         </a>
+        
         @endforeach
     </div>
 
