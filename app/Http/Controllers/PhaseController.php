@@ -38,6 +38,16 @@ class PhaseController extends Controller
         $phase->save();
         $phases = Phase::where('project_id', $request->id)->get();
         $tasks = Task::where('project_id', $request->id)->get();
+
+        //establece la primer y última fecha conforme se van agregando más fases para el proyecto
+        $start_date = Phase::where('project_id', $request->project_id)->orderBy('initial_date', 'asc')->get();
+        $final_date = Phase::where('project_id', $request->project_id)->orderBy('final_date', 'desc')->get();
+
+        //hace update a las fechas del proyecto
+        Project::where('id', $request->project_id)->update(['start_date' => $start_date[0]->initial_date]);
+        Project::where('id', $request->project_id)->update(['final_date' => $final_date[0]->final_date]);
+
+
         return redirect()->route('projects.show', [$request->project_id, $phases, $tasks]);
         
     }

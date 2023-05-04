@@ -46,13 +46,14 @@
                 <h3>{{$proyectos->name}}</h3><br>
                 {{$proyectos->description}}<br>
                 @can('projects.workers')
-                    <a href="{{route('projects.workers', $proyectos)}}">Agregar trabajadores</a>    
+                    <a href="{{route('projects.workers', $proyectos)}}">Agregar trabajadores</a><br>   
                 @endcan
-                
+                @if($proyectos->start_date !== '2020-01-01')
+                    {{$proyectos->start_date}} --- {{$proyectos->final_date}}<br>
+                @endif
 
             </div>
         </a>
-        
         @endforeach
     </div>
 
