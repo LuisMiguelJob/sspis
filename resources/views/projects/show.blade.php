@@ -38,18 +38,76 @@
 
             @foreach ($phases as $phase)<!--Se muestra un 4each de cada fase de este proyecto, que se recupera desde el "show" que llega como parametro-->
                 <div id="{{$phase->id}}" onclick="showInfo(1, {{$phase->id}})" style="background-color: darkgray; position:reative; height: 35px; color:black; padding: 5px; margin-top: 10px;"><!--"Abre" la ficha de la fase para ver y agregar tareas, solo está en display:none-->
+                    <!--Div para mostrar la barra de color según el progreso del proyecto-->
+                    <div id="progress{{$phase->id}}" style="position:relative; left:0%; height:2px; text-align:right;"></div>
                     Fase: {{$phase->name}}  
+
+
+                    <!--Div para mostrar la barra de color según el progreso del proyecto-->
+                    @php
+                        {{
+                            $df = new DateTime($phase->final_date);
+                            $dCurr = new DateTime(date("Y-m-d"));                            
+                            $diffDate = $dCurr->diff($df)->days;
+                        }}
+                    @endphp
+                    <script>
+                        //funcion par colorear la parte de abajo de la tarjeta según los días que quedan (verde si tienen más de 20 dias, amarillo si son mas de 10 pero menos de 20 y rojo si quedan menos de 4 días)
+                        if({{$diffDate}} >= 20){
+                            document.getElementById("progress"+{{$phase->id}}).style.backgroundColor = "green";
+                            document.getElementById("progress"+{{$phase->id}}).innerHTML = "Quedan: "+{{$diffDate}}+" dias"
+                        }else if({{$diffDate}} <= 20 && {{$diffDate}} >= 10){
+                            document.getElementById("progress"+{{$phase->id}}).style.backgroundColor = "yellow";
+                            document.getElementById("progress"+{{$phase->id}}).innerHTML = "Quedan: "+{{$diffDate}}+" dias"
+                        } else if({{$diffDate}} <= 10 && {{$diffDate}} >= 4){
+                            document.getElementById("progress"+{{$phase->id}}).style.backgroundColor = "red";
+                            document.getElementById("progress"+{{$phase->id}}).innerHTML = "Quedan: "+{{$diffDate}}+" dias"
+                        }else{
+                            document.getElementById("progress"+{{$phase->id}}).style.backgroundColor = "red";
+                            document.getElementById("progress"+{{$phase->id}}).innerHTML = "Quedan: "+{{$diffDate}}+" dias"
+                        }
+                    </script>
+
+
                 </div>
                 <div id="phase {{$phase->id}}" style="display: none; background-color: rgb(86, 86, 86); position:reative; height: auto; color:black; padding: 5px;"><!--Div de cada tarea de la fase-->
                     Descripcion: {{$phase->description}}<br>{{$phase->initial_date}}  --  {{$phase->final_date}}<br><br>
                     @foreach ($tasks as $task)
                         @if($task->phase_id == $phase->id)
                             <div id="{{$task->id}}" onclick="showInfo(2, {{$task->id}})" style="background-color: rgb(131, 130, 130); position:reative; height: 35px; color:black; padding: 5px; margin-top: 5px;"><!--"Abre" la ficha de la fase para ver y agregar tareas, solo está en display:none-->
+                                <!--Div para mostrar la barra de color según el progreso del proyecto-->
+                                <div id="progressT{{$task->id}}" style="position:relative; left:0%; height:2px; text-align:right;"></div>
                                 Tarea: {{($task->name)}} <br> 
                             </div>
                             <div id="task {{$task->id}}" style="display: none; background-color:rgb(131, 130, 130);  position:reative; height: auto; color:black; padding: 5px;"><!--Div de cada tarea de la fase-->
                                 Descripcion: {{$task->description}}<br>{{$task->initial_date}}  --  {{$task->final_date}}<br><br>
                             </div>
+
+                            <!--Div para mostrar la barra de color según el progreso del proyecto-->
+                            @php
+                            {{
+                                $df = new DateTime($task->final_date);
+                                $dCurr = new DateTime(date("Y-m-d"));                            
+                                $diffDate = $dCurr->diff($df)->days;
+                            }}
+                            @endphp
+                            <script>
+                                //funcion par colorear la parte de abajo de la tarjeta según los días que quedan (verde si tienen más de 20 dias, amarillo si son mas de 10 pero menos de 20 y rojo si quedan menos de 4 días)
+                                if({{$diffDate}} >= 20){
+                                    document.getElementById("progressT"+{{$task->id}}).style.backgroundColor = "green";
+                                    document.getElementById("progressT"+{{$task->id}}).innerHTML = "Quedan: "+{{$diffDate}}+" dias"
+                                }else if({{$diffDate}} <= 20 && {{$diffDate}} >= 10){
+                                    document.getElementById("progressT"+{{$task->id}}).style.backgroundColor = "yellow";
+                                    document.getElementById("progressT"+{{$task->id}}).innerHTML = "Quedan: "+{{$diffDate}}+" dias"
+                                } else if({{$diffDate}} <= 10 && {{$diffDate}} >= 4){
+                                    document.getElementById("progressT"+{{$task->id}}).style.backgroundColor = "red";
+                                    document.getElementById("progressT"+{{$task->id}}).innerHTML = "Quedan: "+{{$diffDate}}+" dias"
+                                }else{
+                                    document.getElementById("progressT"+{{$task->id}}).style.backgroundColor = "red";
+                                    document.getElementById("progressT"+{{$task->id}}).innerHTML = "Quedan: "+{{$diffDate}}+" dias"
+                                }
+                            </script>
+
                         @endif
                     @endforeach
                     <form action="{{route('tasks.store')}}" method="POST"><!--Form para agregar la tarea-->
