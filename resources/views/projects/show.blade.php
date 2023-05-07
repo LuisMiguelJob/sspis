@@ -59,10 +59,7 @@
                         }else if({{$diffDate}} <= 20 && {{$diffDate}} >= 10){
                             document.getElementById("progress"+{{$phase->id}}).style.backgroundColor = "yellow";
                             document.getElementById("progress"+{{$phase->id}}).innerHTML = "Quedan: "+{{$diffDate}}+" dias"
-                        } else if({{$diffDate}} <= 10 && {{$diffDate}} >= 4){
-                            document.getElementById("progress"+{{$phase->id}}).style.backgroundColor = "red";
-                            document.getElementById("progress"+{{$phase->id}}).innerHTML = "Quedan: "+{{$diffDate}}+" dias"
-                        }else{
+                        } else if({{$diffDate}} <= 10){
                             document.getElementById("progress"+{{$phase->id}}).style.backgroundColor = "red";
                             document.getElementById("progress"+{{$phase->id}}).innerHTML = "Quedan: "+{{$diffDate}}+" dias"
                         }
@@ -99,10 +96,7 @@
                                 }else if({{$diffDate}} <= 20 && {{$diffDate}} >= 10){
                                     document.getElementById("progressT"+{{$task->id}}).style.backgroundColor = "yellow";
                                     document.getElementById("progressT"+{{$task->id}}).innerHTML = "Quedan: "+{{$diffDate}}+" dias"
-                                } else if({{$diffDate}} <= 10 && {{$diffDate}} >= 4){
-                                    document.getElementById("progressT"+{{$task->id}}).style.backgroundColor = "red";
-                                    document.getElementById("progressT"+{{$task->id}}).innerHTML = "Quedan: "+{{$diffDate}}+" dias"
-                                }else{
+                                } else if({{$diffDate}} <= 10){
                                     document.getElementById("progressT"+{{$task->id}}).style.backgroundColor = "red";
                                     document.getElementById("progressT"+{{$task->id}}).innerHTML = "Quedan: "+{{$diffDate}}+" dias"
                                 }
