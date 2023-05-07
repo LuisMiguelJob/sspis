@@ -81,6 +81,18 @@ class PhaseController extends Controller
      */
     public function destroy(Phase $phase)
     {
-        //
+        //$phase->users()->detach();
+        $phase->delete();
+
+        //Este if evalua cuantas fases quedan, si queda solo una, toma las fechas de esa fase y se las asigna al proyecto, en lugar de tener fechas de fases anteriores que hayan sido borradas
+        $phases = Phase::where('project_id', $phase->project_id)->get();
+        if(sizeof($phases) == 1){
+            $start_date = Phase::where('project_id', $phase->project_id)->orderBy('initial_date', 'asc')->get();
+            $final_date = Phase::where('project_id', $phase->project_id)->orderBy('final_date', 'desc')->get();
+            Project::where('id', $phase->project_id)->update(['start_date' => $start_date[0]->initial_date]);
+            Project::where('id', $phase->project_id)->update(['final_date' => $final_date[0]->final_date]);
+        }
+    
+        return redirect()->route('projects.show', $phase->project_id);
     }
 }

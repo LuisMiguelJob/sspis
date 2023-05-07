@@ -57,7 +57,7 @@
                 @can('projects.workers')
                     <a href="{{route('projects.workers', $proyectos)}}">Agregar trabajadores</a><br>   
                 @endcan
-                @if($proyectos->start_date !== '2020-01-01')
+                @if($phase == true)
                     {{$proyectos->start_date}} --- {{$proyectos->final_date}}<br>
                     <!--Div para mostrar la barra de color según el progreso del proyecto-->
                     <div id="progress{{$proyectos->id}}" style="z-index:1; position:absolute; left:0px; bottom:-1px; width: 250px;"> 

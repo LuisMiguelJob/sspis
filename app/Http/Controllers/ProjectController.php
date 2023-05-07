@@ -26,14 +26,18 @@ class ProjectController extends Controller
         $rol = Auth::user()->roles->pluck('name')->first();
         if($rol == "Leader"){
             $proyecto = Project::where('user_id', Auth::id())->get();
+
+            if(sizeof($proyecto) > 0){ 
+                $phase = Phase::where('project_id', $proyecto[0]->id)->get();
+                if(sizeof($phase) > 0) $phase = true; else $phase = false;
+            } else $phase = false;
         }
 
         if($rol == "Worker"){
             $proyecto = Auth::user()->projects;
         }
-
-        //$proyecto = Project::orderBy('id', 'desc')->paginate();
-        return view('projects.index', compact('proyecto'));
+        
+        return view('projects.index', compact('proyecto', 'phase'));
     }
 
     /**
