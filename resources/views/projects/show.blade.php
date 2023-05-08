@@ -22,9 +22,9 @@
             <label>Descripcion de la fase:</label><br>
             <textarea name="description" rows="5">{{old('description')}}</textarea><br>
             <label>Fecha de inicio de la fase:</label><br>
-            <input type="date" name="initial_date"><br><!-- toma el ultimo elemento del arreglo de las fases (que ya llegan solo las fases del proyecto que estamos viendo) y de ese último arreglo toma su fecha !-->
+            <input id="initial_date" type="date" name="initial_date" onBlur="selectInitalDate()"><br><!-- toma el ultimo elemento del arreglo de las fases (que ya llegan solo las fases del proyecto que estamos viendo) y de ese último arreglo toma su fecha !-->
             <label>Fecha de finalización de la fase:</label><br>
-            <input type="date" name="final_date"><br><br>
+            <input id="final_date" type="date" name="final_date"><br><br>
             <input style="display:none" type="text" name="project_id" value="{{$project->id}}">
             <button type="submit">Crear fase</button>
         </div><br> 
@@ -188,5 +188,10 @@
             }
         }
 
+        //funcion para que la fecha inicial de la fase no pueda ser despúes de la fecha final
+        function selectInitalDate() {
+            var minToDate = document.getElementById("initial_date").value;
+            document.getElementById("final_date").setAttribute("min", minToDate);
+        }
     </script>
 @endsection
