@@ -35,6 +35,7 @@ class ProjectController extends Controller
 
         if($rol == "Worker"){
             $proyecto = Auth::user()->projects;
+            $phase = false;
         }
         
         return view('projects.index', compact('proyecto', 'phase'));
