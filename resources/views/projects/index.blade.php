@@ -44,19 +44,23 @@
 </div>
 
 <h2>Projects</h2>
-    @can('projects.create')
+    {{-- @can('projects.create') --}}
         <a onclick="createProject()">Crear proyecto</a><!-- este link abre la "ventana para crear un proyecto" -->    
-    @endcan
+    {{-- @endcan --}}
+
+    @if (sizeof($proyectosLider) > 0)
+
+    <h2>Proyectos Liderados</h2>
 
     <div id="container" style="display: flex; flex-wrap: wrap;">
-        @foreach ($proyecto as $proyectos)<!--Por cada proyecto que exista del lider se crea como una tarjetita-->
+        @foreach ($proyectosLider as $proyectos)<!--Por cada proyecto que exista del lider se crea como una tarjetita-->
         <a href="{{route('projects.show', $proyectos->id)}}">
             <div style="position:relative; width: 250px; height: 250px; background-color: gray; margin: 10px; padding: 5px 5px 0px 5px">
                 <h3>{{$proyectos->name}}</h3><br>
                 {{$proyectos->description}}<br>
-                @can('projects.workers')
+                {{-- @can('projects.workers') --}}
                     <a href="{{route('projects.workers', $proyectos)}}">Agregar trabajadores</a><br>   
-                @endcan
+                {{-- @endcan --}}
                 @if($phase == true)
                     <p style="color:white">{{$proyectos->start_date}} --- {{$proyectos->final_date}}</p><br>
                     <!--Div para mostrar la barra de color según el progreso del proyecto-->
@@ -92,6 +96,59 @@
         </a>
         @endforeach
     </div>
+        
+    @endif
+
+    @if (sizeof($proyectosTrabajador) > 0)
+
+    <h2>Colaboracion En Proyectos</h2>
+
+    <div id="container" style="display: flex; flex-wrap: wrap;">
+        @foreach ($proyectosTrabajador as $proyectos)<!--Por cada proyecto que exista del lider se crea como una tarjetita-->
+        <a href="{{route('projects.show', $proyectos->id)}}">
+            <div style="position:relative; width: 250px; height: 250px; background-color: gray; margin: 10px; padding: 5px 5px 0px 5px">
+                <h3>{{$proyectos->name}}</h3><br>
+                {{$proyectos->description}}<br>
+                {{-- @can('projects.workers') --}}
+                    {{-- <a href="{{route('projects.workers', $proyectos)}}">Agregar trabajadores</a><br>    --}}
+                {{-- @endcan --}}
+                @if($phase == true)
+                    <p style="color:white">{{$proyectos->start_date}} --- {{$proyectos->final_date}}</p><br>
+                    <!--Div para mostrar la barra de color según el progreso del proyecto-->
+                    <div id="progress{{$proyectos->id}}" style="z-index:1; position:absolute; left:0px; bottom:-1px; width: 250px;"> 
+                         <!--Proceso para calcular la cantidad de dias restantes del proyecto-->
+                        @php
+                        {{
+                            $df = new DateTime($proyectos->final_date);
+                            $dCurr = new DateTime(date("Y-m-d"));                            
+                            $diffDate = $dCurr->diff($df)->days;
+                        }}
+                        @endphp
+                        <script>
+                            //funcion par colorear la parte de abajo de la tarjeta según los días que quedan (verde si tienen más de 20 dias, amarillo si son mas de 10 pero menos de 20 y rojo si quedan menos de 4 días)
+                            if({{$diffDate}} >= 20){
+                                document.getElementById("progress"+{{$proyectos->id}}).style.backgroundColor = "green";
+                                document.getElementById("progress"+{{$proyectos->id}}).style.color = "white";
+                                document.getElementById("progress"+{{$proyectos->id}}).innerHTML = "Quedan: "+{{$diffDate}}+" dias"
+                            }else if({{$diffDate}} <= 20 && {{$diffDate}} >= 10){
+                                document.getElementById("progress"+{{$proyectos->id}}).style.backgroundColor = "yellow";
+                                document.getElementById("progress"+{{$proyectos->id}}).style.color = "black";
+                                document.getElementById("progress"+{{$proyectos->id}}).innerHTML = "Quedan: "+{{$diffDate}}+" dias"
+                            } else if({{$diffDate}} <= 10){
+                                document.getElementById("progress"+{{$proyectos->id}}).style.backgroundColor = "red";
+                                document.getElementById("progress"+{{$proyectos->id}}).style.color = "white";
+                                document.getElementById("progress"+{{$proyectos->id}}).innerHTML = "Quedan: "+{{$diffDate}}+" dias"
+                            }
+                    
+                        </script>
+                    </div>
+                @endif
+            </div>
+        </a>
+        @endforeach
+    </div>
+        
+    @endif
 
     <script>
         function createProject() {

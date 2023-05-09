@@ -23,22 +23,22 @@ class ProjectController extends Controller
     public function index()
     {
         // con esto retornamos los proyectos que el lider ha creado
-        $rol = Auth::user()->roles->pluck('name')->first();
-        if($rol == "Leader"){
-            $proyecto = Project::where('user_id', Auth::id())->get();
+        //$rol = Auth::user()->roles->pluck('name')->first();
+        //if($rol == "Leader"){
+            $proyectosLider = Project::where('user_id', Auth::id())->get();
 
-            if(sizeof($proyecto) > 0){ 
-                $phase = Phase::where('project_id', $proyecto[0]->id)->get();
+            if(sizeof($proyectosLider) > 0){ 
+                $phase = Phase::where('project_id', $proyectosLider[0]->id)->get();
                 if(sizeof($phase) > 0) $phase = true; else $phase = false;
             } else $phase = false;
-        }
+        //}
 
-        if($rol == "Worker"){
-            $proyecto = Auth::user()->projects;
+        //if($rol == "Worker"){
+            $proyectosTrabajador = Auth::user()->projects;
             $phase = false;
-        }
+        //}
         
-        return view('projects.index', compact('proyecto', 'phase'));
+        return view('projects.index', compact('proyectosLider', 'proyectosTrabajador', 'phase'));
     }
 
     /**
@@ -52,6 +52,10 @@ class ProjectController extends Controller
      * Store a newly created resource in storage.
      */
     public function show($id){//este show te lleva a la pagina para ver TODOS los detalles del proyecto; en caso de crear uno, como no tiene fase, se va como paremetro 0, y no muestrar ningúna fase, pq no hay
+
+        // comprobar si hay un registro donde el usuario sea lider del proyecto seleccionado
+        $areYouLeader = Project::where('id', $id)->where('user_id', Auth::id())->get();
+
         $project = Project::find($id);
         $phases = Phase::where('project_id', $id)->get();
         $leader = User::where('id', $project->user_id)->get();//Recupera la info del usuario que crea el proyecto para mostrarlo en el show
@@ -59,7 +63,7 @@ class ProjectController extends Controller
             $tasks = Task::where('project_id', $id)->get();
         else
             $tasks = Task::where('phase_id', 0)->get();
-        return view('projects.show', ['project'=>$project], compact('phases', 'tasks', 'leader'));
+        return view('projects.show', ['project'=>$project], compact('phases', 'tasks', 'leader', 'areYouLeader'));
     }
 
     public function store(Request $request){//Store del proyecto sin fase ni tarea, una vez creado te redirige a la página para ver los detalles de ese proyecto
@@ -107,19 +111,27 @@ class ProjectController extends Controller
 
     public function workers(Project $project)
     { 
-        //$users->projects()->where('id', $project->id)->exist();
-        $id = $project->id;
+        // Condicion para detectar que el usuario actual es el lider del proyecto clickeado
+        $idUser = Auth::id();
+        $yourProject = Project::where('id', $project->id)->where('user_id', $idUser)->get();
+        if(count($yourProject) > 0){
+            //$users->projects()->where('id', $project->id)->exist();
+            $id = $project->id;
 
-        // Usuarios de tipo Worker
-        $users = User::whereHas("roles", function($q){ $q->where("name", "Worker"); })->get();
+            // Usuarios de tipo Worker // Actualizacion para quitar el usuario trabajador actual
+            $users = User::whereHas("roles", function($q){ $q->where("name", "Worker"); })->where('id','!=',Auth::id())->get();
 
-        // Usuarios de tipo Worker pero tomando en cuenta si estan en el proyecto
-        $usersInProject = User::whereHas("roles", function($q){ $q->where("name", "Worker"); })->whereHas('projects', function ($q) use ($id) {$q->where('project_id', '=', $id); })->get();
+            // Usuarios de tipo Worker pero tomando en cuenta si estan en el proyecto
+            $usersInProject = User::whereHas("roles", function($q){ $q->where("name", "Worker"); })->whereHas('projects', function ($q) use ($id) {$q->where('project_id', '=', $id); })->get();
 
-        // Usuarios que no estan en el proyecto
-        $usersWithoutProject = $users->diff($usersInProject);
+            // Usuarios que no estan en el proyecto
+            $usersWithoutProject = $users->diff($usersInProject);
 
-        return view('projects.workers', compact('project', 'usersInProject', 'usersWithoutProject'));
+            return view('projects.workers', compact('project', 'usersInProject', 'usersWithoutProject'));
+        }else{
+            // en caso de que de que el usuario en sesion no posee el proyecto, entonces se redirige al index de proyectos
+            return redirect()->route('projects.index');
+        }
     }
 
     /* 

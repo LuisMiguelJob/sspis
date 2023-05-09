@@ -35,24 +35,26 @@
         <a href="{{route('projects.index')}}">volver a los proyectos</a><br><br><!--Para regresar a las tarjetas de los proyectos -->
            
             <!--Div para mostrar el titulo, descripición del proyecto y los botones de editar y eliminar-->
-            <div style="display:flex">
-                <div style="position:relative; width:80%; margin:0px">
-                    <p><strong>Encargado del proyecto: {{$leader[0]->name}}</strong></p>
-                    <p>Descripción: {{$project->description}}</p>
+            @if (count($areYouLeader) > 0)
+                <div style="display:flex">
+                    <div style="position:relative; width:80%; margin:0px">
+                        <p><strong>Encargado del proyecto: {{$leader[0]->name}}</strong></p>
+                        <p>Descripción: {{$project->description}}</p>
+                    </div>
+                    <div style="position:relative; width:10%; text-align:center">
+                        <a><img src='{{ asset('img/writing.png') }}' width="50px" height="50px"></a> 
+                    </div>
+                    <div style="position:relative; width:10%; text-align:center">
+                        <form action="{{route('projects.destroy', $project)}}" method="POST">
+                            @csrf
+                            @method('delete')
+                            <button type="submit" style="background-color:transparent; border:none;">
+                                <img src='{{ asset('img/trash.png') }}'  width="50px" height="50px">
+                            </button>
+                        </form> 
+                    </div>
                 </div>
-                <div style="position:relative; width:10%; text-align:center">
-                    <a><img src='/Proyecto-ing2/resources/imgs/writing.png' width="50px" height="50px"></a> 
-                </div>
-                <div style="position:relative; width:10%; text-align:center">
-                    <form action="{{route('projects.destroy', $project)}}" method="POST">
-                        @csrf
-                        @method('delete')
-                        <button type="submit" style="background-color:transparent; border:none;">
-                            <img src='/Proyecto-ing2/resources/imgs/trash.png'  width="50px" height="50px">
-                        </button>
-                    </form> 
-                </div>
-            </div>
+            @endif
 
             <!--Se muestra un 4each de cada fase de este proyecto, que se recupera desde el "show" que llega como parametro-->
             @foreach ($phases as $phase)
@@ -102,13 +104,15 @@
                                         <div style="width:50%"> Tarea: {{$task->name}} </div>
                                         <div style="display:flex; justify-content:flex-end; width:50%;">
                                             <span style="margin-right: 30px" id="progressT2{{$task->id}}" ></span>
-                                            <form action="{{route('tasks.destroy', $task)}}" method="POST">
-                                                @csrf
-                                                @method('delete')
-                                                <button style="background-color:rgb(129, 24, 24); border-style:none; border-radius:100px; font-size:0.9rem;">
-                                                    - Eliminar tarea
-                                                </button>
-                                            </form>
+                                            @if (count($areYouLeader) > 0)
+                                                <form action="{{route('tasks.destroy', $task)}}" method="POST">
+                                                    @csrf
+                                                    @method('delete')
+                                                    <button style="background-color:rgb(129, 24, 24); border-style:none; border-radius:100px; font-size:0.9rem;">
+                                                        - Eliminar tarea
+                                                    </button>
+                                                </form>
+                                            @endif
                                         </div>         
                                     </div>
                                 </div>
@@ -161,23 +165,28 @@
 
                     <!--Divs para los botones dentro de la fase, son en orden: añadir tarea, editar y borrar-->
                     <div style="display:flex; flex-direction:column; margin:0px 15px; justify-content:flex-start; cursor: pointer;">
-                        <button onclick="createTask({{$phase->id}})" style="background-color:rgb(35, 129, 24); border-style:none; margin-top:10px; border-radius:100px; font-size:1rem;">+ Añadir tarea</button>
-                        <button style="background-color:rgb(33, 95, 172); border-style:none; margin-top:10px; border-radius:100px; font-size:1rem;">Editar fase</button>
-                        <form action="{{route('phases.destroy', $phase)}}" method="POST">
-                            @csrf
-                            @method('delete')
-                            <button style="background-color:rgb(129, 24, 24); border-style:none; margin-top:10px; border-radius:100px; font-size:1rem;">
-                                - Eliminar fase
-                            </button>
-                        </form>
+                        @if (count($areYouLeader) > 0)
+                            <button onclick="createTask({{$phase->id}})" style="background-color:rgb(35, 129, 24); border-style:none; margin-top:10px; border-radius:100px; font-size:1rem;">+ Añadir tarea</button>
+                            <button style="background-color:rgb(33, 95, 172); border-style:none; margin-top:10px; border-radius:100px; font-size:1rem;">Editar fase</button>
+                                <form action="{{route('phases.destroy', $phase)}}" method="POST">
+                                    @csrf
+                                    @method('delete')
+                                    <button style="background-color:rgb(129, 24, 24); border-style:none; margin-top:10px; border-radius:100px; font-size:1rem;">
+                                        - Eliminar fase
+                                    </button>
+                                </form>
+                        @endif
                     </div>
                     
 
                 </div>
             @endforeach
-            <button onclick="createPhase()" style="background-color:rgb(35, 129, 24); border-style:none; margin-top:10px; border-radius:100px; font-size:1.2rem;">
-                + Añadir fase
-            </button>
+
+            @if (count($areYouLeader) > 0)
+                <button onclick="createPhase()" style="background-color:rgb(35, 129, 24); border-style:none; margin-top:10px; border-radius:100px; font-size:1.2rem;">
+                    + Añadir fase
+                </button>
+            @endif
 
             
             
