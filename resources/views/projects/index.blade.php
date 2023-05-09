@@ -18,14 +18,14 @@
     </div>
     <form name="myform" action="{{route('projects.store')}}" method="POST">
         @csrf
-        <label>Nombre del proyecto:<br> 
+        <label style="color:white">Nombre del proyecto:<br> 
             <input type="text" name="name" value="{{old('name')}}">
         </label><br>
         @error('name')
         <br><small>*{{$message}}</small>
         @enderror
         <div style="display:none">
-        <label>ID del lider del proyecto:
+        <label style="color:white">ID del lider del proyecto:
             <input type="text" name="user_id" value="{{$id = Auth::id()}}">
         </label>
         </div>
@@ -33,7 +33,7 @@
         <br><small>*{{$message}}</small>
         @enderror
         <br><br>
-        <label>Descripción del proyecto: <br>
+        <label style="color:white">Descripción del proyecto: <br>
             <textarea name="description" rows="5">{{old('description')}}</textarea><br>
         </label><br>
         @error('name')
@@ -58,7 +58,7 @@
                     <a href="{{route('projects.workers', $proyectos)}}">Agregar trabajadores</a><br>   
                 @endcan
                 @if($phase == true)
-                    {{$proyectos->start_date}} --- {{$proyectos->final_date}}<br>
+                    <p style="color:white">{{$proyectos->start_date}} --- {{$proyectos->final_date}}</p><br>
                     <!--Div para mostrar la barra de color según el progreso del proyecto-->
                     <div id="progress{{$proyectos->id}}" style="z-index:1; position:absolute; left:0px; bottom:-1px; width: 250px;"> 
                          <!--Proceso para calcular la cantidad de dias restantes del proyecto-->
