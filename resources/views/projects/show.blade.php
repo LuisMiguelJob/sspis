@@ -97,28 +97,37 @@
                         <!--4each de cada tarea de la fase-->
                         @foreach ($tasks as $task)
                             @if($task->phase_id == $phase->id)
-                                <div id="{{$task->id}}" onclick="showInfo(2, {{$task->id}})" style="background-color: rgb(131, 130, 130); position:relative; height: 45px; color:black; padding: 5px; margin-top: 5px;"><!--"Abre" la ficha de la fase para ver y agregar tareas, solo está en display:none-->
+                                <div id="{{$task->id}}" onclick="showInfo(2, {{$task->id}})" style="background-color: rgb(131, 130, 130); position:relative; color:black; padding: 5px; margin-top: 5px;"><!--"Abre" la ficha de la fase para ver y agregar tareas, solo está en display:none-->
                                     <!--Div para mostrar la barra de color según el progreso de la tarea-->
                                     <div id="progressT1{{$task->id}}" style="position:relative; left:0%; height:2px;"></div>
-                                    <div style="display:flex; margin-top:5px">
-                                        <div style="width:50%"> Tarea: {{$task->name}} </div>
-                                        <div style="display:flex; justify-content:flex-end; width:50%;">
-                                            <span style="margin-right: 30px" id="progressT2{{$task->id}}" ></span>
-                                            @if (count($areYouLeader) > 0)
-                                                <form action="{{route('tasks.destroy', $task)}}" method="POST">
-                                                    @csrf
-                                                    @method('delete')
-                                                    <button style="background-color:rgb(129, 24, 24); border-style:none; border-radius:100px; font-size:0.9rem;">
-                                                        - Eliminar tarea
-                                                    </button>
-                                                </form>
-                                            @endif
+                                    <div style="display:flex; margin-top:5px;">
+                                        <div style="width:87%"> Tarea: {{$task->name}} </div>
+                                        <div style="display:flex; justify-content:flex-end; text-align:center; margin:0px 15px;">
+                                            <span style="" id="progressT2{{$task->id}}" ></span>
                                         </div>         
                                     </div>
                                 </div>
-                                <div id="task {{$task->id}}" style="display: none; background-color:rgb(131, 130, 130);  position:reative; height: auto; color:black; padding: 5px;"><!--Div de cada tarea de la fase-->
-                                    Descripcion: {{$task->description}}<br>{{$task->initial_date}}  --  {{$task->final_date}}<br><br></div>
                                 
+                                <div id="task {{$task->id}}" style="display:none; background-color:rgb(131, 130, 130);  position:reative; height:auto; color:black; padding:5px;"><!--Div de cada tarea de la fase-->
+                                    <div style="display:flex; flex-direction:column; width:87%;">
+                                        Descripcion: {{$task->description}}<br>{{$task->initial_date}}  --  {{$task->final_date}}<br>
+                                    </div>
+
+                                    <!--Divs para los botones dentro de la tarea, son en orden: añadir tarea, editar y borrar-->
+                                    @if (count($areYouLeader) > 0)
+                                        <div style="display:flex; flex-direction:column; margin:0px 15px; justify-content:flex-end; cursor:pointer;">
+                                            <button style="margin-top:10px; background-color:rgb(33, 95, 172); border-style:none; margin-top:10px; border-radius:100px; font-size:0.9rem;">Editar fase</button>
+                                            <form action="{{route('tasks.destroy', $task)}}" method="POST">
+                                                @csrf
+                                                @method('delete')
+                                                <button style="margin-top:10px; background-color:rgb(129, 24, 24); border-style:none; border-radius:100px; font-size:0.9rem;">
+                                                    - Eliminar tarea
+                                                </button>
+                                            </form>
+                                        </div>
+                                    @endif
+                                </div>
+
                                 @php
                                 {{
                                     $df = new DateTime($task->final_date);
@@ -183,6 +192,7 @@
             @endforeach
 
             @if (count($areYouLeader) > 0)
+            
                 <button onclick="createPhase()" style="background-color:rgb(35, 129, 24); border-style:none; margin-top:10px; border-radius:100px; font-size:1.2rem;">
                     + Añadir fase
                 </button>
@@ -201,10 +211,10 @@
                 else
                     document.getElementById("phase "+number).style.display = "flex";
             }else{
-                if(document.getElementById("task "+number).style.display == "block")
+                if(document.getElementById("task "+number).style.display == "flex")
                     document.getElementById("task "+number).style.display = "none";
                 else
-                    document.getElementById("task "+number).style.display = "block";
+                    document.getElementById("task "+number).style.display = "flex";
             }
             
         }

@@ -26,19 +26,13 @@ class ProjectController extends Controller
         //$rol = Auth::user()->roles->pluck('name')->first();
         //if($rol == "Leader"){
             $proyectosLider = Project::where('user_id', Auth::id())->get();
-
-            if(sizeof($proyectosLider) > 0){ 
-                $phase = Phase::where('project_id', $proyectosLider[0]->id)->get();
-                if(sizeof($phase) > 0) $phase = true; else $phase = false;
-            } else $phase = false;
         //}
 
         //if($rol == "Worker"){
             $proyectosTrabajador = Auth::user()->projects;
-            $phase = false;
         //}
         
-        return view('projects.index', compact('proyectosLider', 'proyectosTrabajador', 'phase'));
+        return view('projects.index', compact('proyectosLider', 'proyectosTrabajador'));
     }
 
     /**
@@ -71,8 +65,8 @@ class ProjectController extends Controller
         $project->name = $request->name;
         $project->progress = 0;
         $project->description = $request->description;
-        $project->start_date = '2020-01-01 01:00:00';
-        $project->final_date = '2020-01-01 01:00:00';
+        $project->start_date = '2000-01-01 01:00:00';
+        $project->final_date = '2000-01-01 01:00:00';
         $project->user_id = $request->user_id;
         $project->save();
 

@@ -84,13 +84,18 @@ class PhaseController extends Controller
         //$phase->users()->detach();
         $phase->delete();
 
-        //Este if evalua cuantas fases quedan, si queda solo una, toma las fechas de esa fase y se las asigna al proyecto, en lugar de tener fechas de fases anteriores que hayan sido borradas
+        //Este if evalua cuantas fases quedan, si queda solo una, toma las fechas de esa fase y se las asigna al proyecto, en lugar de tener fechas de fases anteriores que hayan sido borradas. Si no queda niguna, pone fechas por default y no se muestran en el index (pq no hay fehcas de fases)
         $phases = Phase::where('project_id', $phase->project_id)->get();
         if(sizeof($phases) == 1){
             $start_date = Phase::where('project_id', $phase->project_id)->orderBy('initial_date', 'asc')->get();
             $final_date = Phase::where('project_id', $phase->project_id)->orderBy('final_date', 'desc')->get();
             Project::where('id', $phase->project_id)->update(['start_date' => $start_date[0]->initial_date]);
             Project::where('id', $phase->project_id)->update(['final_date' => $final_date[0]->final_date]);
+        }else if(sizeof($phases) == 0){
+            $start_date = '2000-01-01';
+            $final_date = '2000-01-01';
+            Project::where('id', $phase->project_id)->update(['start_date' => $start_date]);
+            Project::where('id', $phase->project_id)->update(['final_date' => $final_date]);
         }
     
         return redirect()->route('projects.show', $phase->project_id);
