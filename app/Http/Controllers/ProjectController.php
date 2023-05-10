@@ -61,13 +61,18 @@ class ProjectController extends Controller
     }
 
     public function store(Request $request){//Store del proyecto sin fase ni tarea, una vez creado te redirige a la página para ver los detalles de ese proyecto
+        $request->validate([
+            'name' => ['required', 'string', 'min:5', 'max:255'], // Esta es una opcion de agregarlo
+            'description' => ['required', 'string', 'min:5', 'max:255'],
+        ]);
+        
         $project = new Project();
         $project->name = $request->name;
         $project->progress = 0;
         $project->description = $request->description;
         $project->start_date = '2000-01-01 01:00:00';
         $project->final_date = '2000-01-01 01:00:00';
-        $project->user_id = $request->user_id;
+        $project->user_id = Auth::id();
         $project->save();
 
         //$project->users()->attach($request->user_id); // test, favor de quitar si da errores

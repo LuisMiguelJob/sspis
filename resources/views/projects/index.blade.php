@@ -43,11 +43,56 @@
     </form>
 </div>
 
+<!-- Modal -->
+<div class="modal fade" id="crearProyectoModal" data-bs-backdrop="static" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+        <form name="myform" action="{{route('projects.store')}}" method="POST">
+
+            @include('partials.form-errors')
+            <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Crear Proyecto</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                    @csrf
+                    <div class="input-group input-group-outline my-3">
+                        <label class="form-label">Nombre del proyecto</label>
+                        <input type="text" class="form-control" name="name">
+                    </div>
+                    <div class="input-group input-group-dynamic">
+                        <textarea class="form-control" rows="5" placeholder="Descripcion del proyecto" spellcheck="false" name="description"></textarea>
+                    </div>
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            <button type="submit" class="btn btn-primary">Guardar Proyecto</button>
+            </div>
+        </form>
+    </div>
+    </div>
+</div>
+
+@foreach ($errors->all() as $error)
+
+@php
+    if($error){
+        echo '<script>$("#crearProyectoModal").modal("show");</script>';
+    }else{
+        echo '<script>$("#crearProyectoModal").modal("hide");</script>';
+    } 
+@endphp
+
+@endforeach
+
 <div id="container2">
-    <h2>Projects</h2>
-        {{-- @can('projects.create') --}}
-            <a onclick="createProject()">Crear proyecto</a><!-- este link abre la "ventana para crear un proyecto" -->    
-        {{-- @endcan --}}
+    <h2>Proyectos</h2>
+        {{-- <button type="button" data-bs-toggle="modal" data-bs-target="crearProyectoModal" class="btn btn-primary mb-5">Crear Proyecto</button> --}}
+
+        <!-- Boton para ejecutar modal de crear proyecto -->
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#crearProyectoModal">
+            Crear Proyecto
+        </button>
 
         @if (sizeof($proyectosLider) > 0)
 
@@ -56,7 +101,7 @@
             @foreach ($proyectosLider as $proyectos)<!--Por cada proyecto que exista del lider se crea como una tarjetita-->
             <a href="{{route('projects.show', $proyectos->id)}}">
                 <div class="row mt-4" style="margin-right:1px">
-                    <div class="col-lg-10 col-md-6 mt-4 mb-4">
+                    <div class="col-lg-10 col-md-6 mb-4">
                         <div class="card z-index-2">
                                 <div class="card-body">
                                     <h6 class="mb-0 ">{{$proyectos->name}}</h6>
@@ -118,7 +163,7 @@
             @foreach ($proyectosTrabajador as $proyectos)<!--Por cada proyecto que exista del lider se crea como una tarjetita-->
             <a href="{{route('projects.show', $proyectos->id)}}">
                 <div class="row mt-4" style="margin-right:1px">
-                    <div class="col-lg-10 col-md-6 mt-4 mb-4">
+                    <div class="col-lg-10 col-md-6 mb-4">
                         <div class="card z-index-2">
                                 <div class="card-body">
                                     <h6 class="mb-0 ">{{$proyectos->name}}</h6>
