@@ -59,7 +59,7 @@
                 <h3>{{$proyectos->name}}</h3><br>
                 {{$proyectos->description}}<br>
                 {{-- @can('projects.workers') --}}
-                    <a href="{{route('projects.workers', $proyectos)}}">Agregar trabajadores</a><br>   
+                    <a href="{{route('projects.workers', $proyectos)}}">gregar trabajadores</a><br>   
                 {{-- @endcan --}}
                 @if($phase == true)
                     <p style="color:white">{{$proyectos->start_date}} --- {{$proyectos->final_date}}</p><br>
