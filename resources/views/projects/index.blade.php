@@ -4,46 +4,9 @@
 
 
 @section('content')
-<div id="Create_Project" style="z-index:2; left:50%; transform:translate(-50%, 0%); display: none; text-align: center; position: fixed; width:45%; height:50%; background-color: gray;">
-    <!-- Este div originalmente era del createProject, pero desde que solo necesitamos 3 inputs, lo agregué como una ventana dentro de la página del show -->
-    <div id="titulo" style="display:flex">
-        <div style="position:relative; width:10%; margin:0px">
-        </div>
-        <div style="position:relative; width:80%; margin:0px">
-            <h2>Crear proyecto</h2>
-        </div>
-        <div style="position:relative; width:10%; margin:0px">
-            <a onclick="createProject()"><h3>X</h3></a>
-        </div>
-    </div>
-    <form name="myform" action="{{route('projects.store')}}" method="POST">
-        @csrf
-        <label style="color:white">Nombre del proyecto:<br> 
-            <input type="text" name="name" value="{{old('name')}}">
-        </label><br>
-        @error('name')
-        <br><small>*{{$message}}</small>
-        @enderror
-        <div style="display:none">
-        <label style="color:white">ID del lider del proyecto:
-            <input type="text" name="user_id" value="{{$id = Auth::id()}}">
-        </label>
-        </div>
-        @error('user_id')
-        <br><small>*{{$message}}</small>
-        @enderror
-        <br><br>
-        <label style="color:white">Descripción del proyecto: <br>
-            <textarea name="description" rows="5">{{old('description')}}</textarea><br>
-        </label><br>
-        @error('name')
-        <br><small>*{{$message}}</small>
-        @enderror
-        <button type="submit">Crear proyecto</button>
-    </form>
-</div>
 
 <!-- Modal -->
+
 <div class="modal fade" id="crearProyectoModal" data-bs-backdrop="static" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
@@ -75,13 +38,13 @@
 
 @foreach ($errors->all() as $error)
 
-@php
-    if($error){
-        echo '<script>$("#crearProyectoModal").modal("show");</script>';
-    }else{
-        echo '<script>$("#crearProyectoModal").modal("hide");</script>';
-    } 
-@endphp
+    @php
+        if($error){
+            echo '<script>$("#crearProyectoModal").modal("hide");</script>';
+        }else{
+            echo '<script>$("#crearProyectoModal").modal("show");</script>';
+        } 
+    @endphp
 
 @endforeach
 
@@ -219,22 +182,4 @@
             
         @endif
 </div>
-
-    <script>
-        function createProject() {
-            //Función para desefoncar el resto de elementos excepto la ventana para crear un proyecto
-            if(document.getElementById("Create_Project").style.display == "block"){
-                document.getElementById("Create_Project").style.display = "none";
-                document.getElementById("sidenav-main").style.opacity = 1;
-                document.getElementById("container2").style.opacity = 1;
-                document.getElementById("navbarBlur").style.opacity = 1;
-            }else{
-                document.getElementById("Create_Project").style.display = "block";
-                document.getElementById("sidenav-main").style.opacity = 0.5;
-                document.getElementById("container2").style.opacity = 0.5;
-                document.getElementById("navbarBlur").style.opacity = 0.5;
-            }
-        }
-
-    </script>
 @endsection
