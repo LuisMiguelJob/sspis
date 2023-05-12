@@ -51,56 +51,13 @@
     </style>
 </head>
 
-<div class="modal fade" id="crearProyectoModal" data-bs-backdrop="static" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-
-        <form name="myform" action="{{route('phases.store')}}" method="POST"><!--Form para agregar una nueva fase-->
-
-            @include('partials.form-errors')
-            <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Crear fase</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                    @csrf
-                    <input style="display:none" type="text" name="project_id" value="{{$project->id}}">
-                    <div class="input-group input-group-outline my-3">
-                        <label class="form-label">Nombre de la fase</label>
-                        <input type="text" class="form-control" name="name">
-                    </div>
-                    <div class="input-group input-group-dynamic">
-                        <textarea class="form-control" rows="5" placeholder="Descripcion del proyecto" spellcheck="false" name="description"></textarea>
-                    </div>
-                    <div class="input-group input-group-outline my-3">
-                        <label>Fecha de inicio de la fase:</label>
-                        <div class="input-group input-group-static">
-                            <input id="initial_date" type="date" name="initial_date" onBlur="selectInitalDate(1)" class="form-control datepicker" placeholder="Please select date" onfocus="focused(this)" onfocusout="defocused(this)">
-                        </div>
-                    </div>
-                    <div class="input-group input-group-outline my-3">
-                        <label>Fecha de finalización de la fase:</label>
-                        <div class="input-group input-group-static">
-                            <input id="final_date" type="date" name="final_date" class="form-control datepicker" placeholder="Please select date" onfocus="focused(this)" onfocusout="defocused(this)">
-                        </div>
-                    </div>
-            </div>
-            <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-            <button type="submit" class="btn btn-primary">Guardar fase</button>
-            </div>
-        </form>
-    </div>
-    </div>
-</div>
-
 @foreach ($errors->all() as $error)
 
     @php
         if($error){
-            echo '<script>$("#crearProyectoModal").modal("hide");</script>';
+            echo '<script>$("#crearFaseModal").modal("hide");</script>';
         }else{
-            echo '<script>$("#crearProyectoModal").modal("show");</script>';
+            echo '<script>$("#crearFaseModal").modal("show");</script>';
         } 
     @endphp
 
@@ -125,13 +82,31 @@
                 </button>
             </form>
 
-            <form action="{{route('projects.destroy', $project)}}" method="POST">
-                @csrf
-                @method('delete')
-                <button type="submit" class="btn btn-outline-warning" style="padding:3px; margin-left:5px">
-                    <a class="btn btn-link text-danger text-gradient px-3 mb-0"><i class="material-icons" style="font-size: 2.5rem">delete</i></a>
-                </button>
-            </form> 
+            
+            <button type="submit" class="btn btn-outline-warning" style="padding:3px; margin-left:5px" data-bs-toggle="modal" data-bs-target="#EliminarProyectoModal">
+                <a class="btn btn-link text-danger text-gradient px-3 mb-0"><i class="material-icons" style="font-size: 2.5rem">delete</i></a>
+            </button>
+
+            <!--Confirmacion para borrar el proyecto-->
+            <div class="modal fade" id="EliminarProyectoModal" data-bs-backdrop="static" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" style="">
+                    <div class="modal-content" style="border-color: #983434; border-width: thick;">
+                        <form action="{{route('projects.destroy', $project)}}" method="POST">
+                            @csrf
+                            @method('delete')
+                                <div class="modal-header" style="background-color: #983434;">
+                                    <h3 style="color:rgb(159, 183, 207);">Eliminar proyecto "{{$project->name}}"</h3>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                <button class="btn btn-danger" type="submit">Si, eliminar proyecto</button> 
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>    
+
         </div>
     </div>
 @endif
@@ -140,7 +115,7 @@
 @foreach ($phases as $phase)
 
     <!--"Abre" la ficha de la fase para ver y agregar tareas, solo está en display:none-->
-    <div id="{{$phase->id}}" onclick="showInfo(1, {{$phase->id}})" style="box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.16); border-radius: 0.5rem 0.5rem 0rem 0rem; background-color: darkgray; position:reative; height: 45px; color:black; padding: 8px; margin-top: 10px;">
+    <div id="{{$phase->id}}" onclick="showInfo(1, {{$phase->id}})" style="cursor: pointer;box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.16); border-radius: 0.5rem 0.5rem 0rem 0rem; background-color: darkgray; position:reative; height: 45px; color:black; padding: 8px; margin-top: 10px;">
         <!--Div para mostrar la barra de color según el progreso de la fase-->
         <div id="progressF1{{$phase->id}}" style="position:relative; left:0%; height:2px;"></div>
         <div style="display:flex;">
@@ -174,12 +149,12 @@
     </div>
 
     <div id="phase {{$phase->id}}" style="box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.16); display:none; background-color:rgb(131, 131, 131); position:reative; height:auto; color:black; padding:10px;"><!--Div de cada tarea de la fase-->
-        <div style="display:flex; flex-direction:column; width:86%;">
+        <div style="display:flex; flex-direction:column; width:85%;">
             Descripcion: {{$phase->description}}<br>{{$phase->initial_date}}  --  {{$phase->final_date}}
             <!--4each de cada tarea de la fase-->
             @foreach ($tasks as $task)
                 @if($task->phase_id == $phase->id)
-                    <div id="{{$task->id}}" onclick="showInfo(2, {{$task->id}})" style="box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.16); border-radius: 0.5rem 0.5rem 0rem 0rem; background-color:darkgray; position:relative; color:black; padding: 5px; margin-top: 5px;"><!--"Abre" la ficha de la fase para ver y agregar tareas, solo está en display:none-->
+                    <div id="{{$task->id}}" onclick="showInfo(2, {{$task->id}})" style="cursor: pointer; box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.16); border-radius: 0.5rem 0.5rem 0rem 0rem; background-color:darkgray; position:relative; color:black; padding: 5px; margin-top: 5px;"><!--"Abre" la ficha de la fase para ver y agregar tareas, solo está en display:none-->
                         <!--Div para mostrar la barra de color según el progreso de la tarea-->
                         <div id="progressT1{{$task->id}}" style="position:relative; left:0%; height:2px;"></div>
                         <div style="display:flex; margin-top:5px;">
@@ -205,13 +180,30 @@
                                         Editar tarea
                                     </button>
                                 </form>                                            
-                                <form action="{{route('tasks.destroy', $task)}}" method="POST">
-                                    @csrf
-                                    @method('delete')
-                                    <button style="width:100%;" class="btn btn-danger">
-                                        - Eliminar tarea
-                                    </button>
-                                </form>
+                                
+                                <button style="width:100%;" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#EliminarTareaModal{{$task->id}}">
+                                    - Eliminar tarea
+                                </button>
+
+                                <!--Confirmacion para borrar la tarea-->
+                                <div class="modal fade" id="EliminarTareaModal{{$task->id}}" data-bs-backdrop="static" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered" style="">
+                                        <div class="modal-content" style="border-color: #983434; border-width: thick;">
+                                            <form action="{{route('tasks.destroy', $task)}}" method="POST">
+                                                @csrf
+                                                @method('delete')
+                                                    <div class="modal-header" style="background-color: #983434;">
+                                                        <h3 style="color:rgb(159, 183, 207);">Eliminar la tarea: "{{$task->name}}" de la fase "{{$phase->name}}" </h3>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                                    <button class="btn btn-danger" type="submit">Si, eliminar tarea</button> 
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>                          
                             </div>
                         @endif
                     </div>
@@ -242,39 +234,40 @@
 
             <!--Form para agregar la tarea-->
 
-                <div id="Ptask{{$phase->id}}" style="width:50%; display:none; position: relative; margin-top:10px" class="card card-body md-4">
-                    <form action="{{route('tasks.store')}}" method="POST">
-                        @csrf
-                            <h2>Nueva tarea para la fase {{$phase->name}}</h2><br>
-                            <div class="input-group input-group-outline my-3">
-                                <label class="form-label">Nombre de la tarea</label>
-                                <input type="text" class="form-control" name="name">
+            <div id="Ptask{{$phase->id}}" style="width:50%; display:none; position: relative; margin-top:10px" class="card card-body md-4">
+                <form action="{{route('tasks.store')}}" method="POST">
+                    @csrf
+                        <h2>Nueva tarea para la fase {{$phase->name}}</h2><br>
+                        <div class="input-group input-group-outline my-3">
+                            <label class="form-label">Nombre de la tarea</label>
+                            <input type="text" class="form-control" name="name">
+                        </div>
+                        <div class="input-group input-group-dynamic">
+                            <textarea class="form-control" rows="5" placeholder="Descripcion de la tarea" spellcheck="false" name="description"></textarea>
+                        </div>
+                        <div class="input-group input-group-outline my-3">
+                            <label>Fecha de inicio de la tarea:</label>
+                            <div class="input-group input-group-static">
+                                <input id="initial_date2" type="date" name="initial_date" onBlur="selectInitalDate(2)" min="{{$phase->initial_date}}" max="{{$phase->final_date}}" class="form-control datepicker" placeholder="Please select date" onfocus="focused(this)" onfocusout="defocused(this)">
                             </div>
-                            <div class="input-group input-group-dynamic">
-                                <textarea class="form-control" rows="5" placeholder="Descripcion de la tarea" spellcheck="false" name="description"></textarea>
+                        </div>
+                        <div class="input-group input-group-outline my-3">
+                            <label>Fecha de finalización de la tarea:</label>
+                            <div class="input-group input-group-static">
+                                <input id="final_date2" type="date" name="final_date" class="form-control datepicker" min="{{$phase->initial_date}}" max="{{$phase->final_date}}" placeholder="Please select date" onfocus="focused(this)" onfocusout="defocused(this)">
                             </div>
-                            <div class="input-group input-group-outline my-3">
-                                <label>Fecha de inicio de la tarea:</label>
-                                <div class="input-group input-group-static">
-                                    <input id="initial_date2" type="date" name="initial_date" onBlur="selectInitalDate(2)" min="{{$phase->initial_date}}" max="{{$phase->final_date}}" class="form-control datepicker" placeholder="Please select date" onfocus="focused(this)" onfocusout="defocused(this)">
-                                </div>
-                            </div>
-                            <div class="input-group input-group-outline my-3">
-                                <label>Fecha de finalización de la tarea:</label>
-                                <div class="input-group input-group-static">
-                                    <input id="final_date2" type="date" name="final_date" class="form-control datepicker" min="{{$phase->initial_date}}" max="{{$phase->final_date}}" placeholder="Please select date" onfocus="focused(this)" onfocusout="defocused(this)">
-                                </div>
-                            </div>
-                            <input style="display:none" type="text" name="phase_id" value="{{$phase->id}}"><br>
-                            <input style="display:none" type="text" name="project_id" value="{{$phase->project_id}}">
+                        </div>
+                        <input style="display:none" type="text" name="phase_id" value="{{$phase->id}}"><br>
+                        <input style="display:none" type="text" name="project_id" value="{{$phase->project_id}}">
 
-                            <button class="btn btn-outline-success" type="submit">Crear tarea</button> 
-                    </form>
-                </div>
+                        <button class="btn btn-outline-success" type="submit">Crear tarea</button> 
+                </form>
+            </div>
+            
         </div>
 
         <!--Divs para los botones dentro de la fase, son en orden: añadir tarea, editar y borrar-->
-        <div style="display:flex; flex-direction:column; margin:0px 25px; justify-content:flex-start; cursor: pointer;">
+        <div style="display:flex; flex-direction:column; margin:0px 20px 0px 35px; justify-content:flex-start; cursor: pointer;">
             @if (count($areYouLeader) > 0)
                 <div><button onclick="createTask({{$phase->id}})" type="button" class="btn btn-success">
                     + Añadir tarea
@@ -288,13 +281,29 @@
                     </button>
                 </form>
 
-                    <form action="{{route('phases.destroy', $phase)}}" method="POST">
-                        @csrf
-                        @method('delete')
-                        <button style="width:100%;" class="btn btn-danger">
-                            - Eliminar fase
-                        </button>
-                    </form>
+                <button style="width:100%;" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#EliminarFaseModal{{$phase->id}}">
+                    - Eliminar fase
+                </button>
+
+                <!--Confirmacion para borrar la fase-->
+                <div class="modal fade" id="EliminarFaseModal{{$phase->id}}" data-bs-backdrop="static" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" style="">
+                        <div class="modal-content" style="border-color: #983434; border-width: thick;">
+                            <form action="{{route('phases.destroy', $phase)}}" method="POST">
+                                @csrf
+                                @method('delete')
+                                    <div class="modal-header" style="background-color: #983434;">
+                                        <h3 style="color:rgb(159, 183, 207);">Eliminar la fase: "{{$phase->name}}"</h3>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                    <button class="btn btn-danger" type="submit">Si, eliminar fase</button> 
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
             @endif
         </div>
         
@@ -304,9 +313,53 @@
 
 @if (count($areYouLeader) > 0) 
 
-    <button style="margin-top: 10px;" type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#crearProyectoModal">
+    <button style="margin-top: 10px;" type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#crearFaseModal">
         + Anañdir fase
     </button>
+
+    <!--modal Form para agregar la fase-->
+    <div class="modal fade" id="crearFaseModal" data-bs-backdrop="static" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content" style="border-color: #81baeb; border-width: thick;">
+    
+            <form name="myform" action="{{route('phases.store')}}" method="POST"><!--Form para agregar una nueva fase-->
+    
+                @include('partials.form-errors')
+                <div class="modal-header" style="background-color: #81baeb;">
+                    <h3 class="modal-title" id="exampleModalLabel">Crear fase</h3>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                        @csrf
+                        <input style="display:none" type="text" name="project_id" value="{{$project->id}}">
+                        <div class="input-group input-group-outline my-3">
+                            <label class="form-label">Nombre de la fase</label>
+                            <input type="text" class="form-control" name="name">
+                        </div>
+                        <div class="input-group input-group-dynamic">
+                            <textarea class="form-control" rows="5" placeholder="Descripcion del proyecto" spellcheck="false" name="description"></textarea>
+                        </div>
+                        <div class="input-group input-group-outline my-3">
+                            <label>Fecha de inicio de la fase:</label>
+                            <div class="input-group input-group-static">
+                                <input id="initial_date" type="date" name="initial_date" onBlur="selectInitalDate(1)" class="form-control datepicker" placeholder="Please select date" onfocus="focused(this)" onfocusout="defocused(this)">
+                            </div>
+                        </div>
+                        <div class="input-group input-group-outline my-3">
+                            <label>Fecha de finalización de la fase:</label>
+                            <div class="input-group input-group-static">
+                                <input id="final_date" type="date" name="final_date" class="form-control datepicker" placeholder="Please select date" onfocus="focused(this)" onfocusout="defocused(this)">
+                            </div>
+                        </div>
+                </div>
+                <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                <button type="submit" class="btn btn-primary">Guardar fase</button>
+                </div>
+            </form>
+        </div>
+        </div>
+    </div>
 
 @endif  
     
@@ -337,10 +390,6 @@
         }
 
         //funcion para que la fecha inicial de la fase no pueda ser despúes de la fecha final
-        function selectInitalDate() {
-            var minToDate = document.getElementById("initial_date").value;
-            document.getElementById("final_date").setAttribute("min", minToDate);
-        }
         function selectInitalDate(caso) {
             if(caso == 1){
                 var minToDate = document.getElementById("initial_date").value;
