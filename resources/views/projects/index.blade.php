@@ -21,10 +21,10 @@
                     @csrf
                     <div class="input-group input-group-outline my-3">
                         <label class="form-label">Nombre del proyecto</label>
-                        <input type="text" class="form-control" name="name">
+                        <input type="text" class="form-control" name="name" required>
                     </div>
                     <div class="input-group input-group-dynamic">
-                        <textarea class="form-control" rows="5" placeholder="Descripcion del proyecto" spellcheck="false" name="description"></textarea>
+                        <textarea class="form-control" rows="5" placeholder="Descripcion del proyecto" spellcheck="false" name="description" required></textarea>
                     </div>
             </div>
             <div class="modal-footer">

@@ -51,18 +51,6 @@
     </style>
 </head>
 
-@foreach ($errors->all() as $error)
-
-    @php
-        if($error){
-            echo '<script>$("#crearFaseModal").modal("hide");</script>';
-        }else{
-            echo '<script>$("#crearFaseModal").modal("show");</script>';
-        } 
-    @endphp
-
-@endforeach
-
 <h1>Project: {{$project->name}}</h1>
 <a href="{{route('projects.index')}}">volver a los proyectos</a><br><br><!--Para regresar a las tarjetas de los proyectos -->
 
@@ -314,7 +302,7 @@
 @if (count($areYouLeader) > 0) 
 
     <button style="margin-top: 10px;" type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#crearFaseModal">
-        + Anañdir fase
+        + Añadir fase
     </button>
 
     <!--modal Form para agregar la fase-->
@@ -334,21 +322,21 @@
                         <input style="display:none" type="text" name="project_id" value="{{$project->id}}">
                         <div class="input-group input-group-outline my-3">
                             <label class="form-label">Nombre de la fase</label>
-                            <input type="text" class="form-control" name="name">
+                            <input type="text" class="form-control" name="name" required>
                         </div>
                         <div class="input-group input-group-dynamic">
-                            <textarea class="form-control" rows="5" placeholder="Descripcion del proyecto" spellcheck="false" name="description"></textarea>
+                            <textarea class="form-control" rows="5" placeholder="Descripcion del proyecto" spellcheck="false" name="description" required></textarea>
                         </div>
                         <div class="input-group input-group-outline my-3">
                             <label>Fecha de inicio de la fase:</label>
                             <div class="input-group input-group-static">
-                                <input id="initial_date" type="date" name="initial_date" onBlur="selectInitalDate(1)" class="form-control datepicker" placeholder="Please select date" onfocus="focused(this)" onfocusout="defocused(this)">
+                                <input id="initial_date" type="date" name="initial_date" onBlur="selectInitalDate(1)" class="form-control datepicker" placeholder="Please select date" onfocus="focused(this)" onfocusout="defocused(this)" required>
                             </div>
                         </div>
                         <div class="input-group input-group-outline my-3">
                             <label>Fecha de finalización de la fase:</label>
                             <div class="input-group input-group-static">
-                                <input id="final_date" type="date" name="final_date" class="form-control datepicker" placeholder="Please select date" onfocus="focused(this)" onfocusout="defocused(this)">
+                                <input id="final_date" type="date" name="final_date" class="form-control datepicker" placeholder="Please select date" onfocus="focused(this)" onfocusout="defocused(this)" required>
                             </div>
                         </div>
                 </div>
