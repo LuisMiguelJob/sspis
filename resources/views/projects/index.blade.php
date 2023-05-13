@@ -36,18 +36,6 @@
     </div>
 </div>
 
-@foreach ($errors->all() as $error)
-
-    @php
-        if($error){
-            echo '<script>$("#crearProyectoModal").modal("hide");</script>';
-        }else{
-            echo '<script>$("#crearProyectoModal").modal("show");</script>';
-        } 
-    @endphp
-
-@endforeach
-
 <div id="container2">
     <h2>Proyectos</h2>
         {{-- <button type="button" data-bs-toggle="modal" data-bs-target="crearProyectoModal" class="btn btn-primary mb-5">Crear Proyecto</button> --}}
