@@ -56,6 +56,42 @@ class UserSeeder extends Seeder
             'email' => 'worker5@gmail.com',
             'password' => Hash::make($password),
         ])->assignRole('Worker');
+
+        User::create([
+            'name' => 'Worker6',
+            'email' => 'worker6@gmail.com',
+            'password' => Hash::make($password),
+        ])->assignRole('Worker');
+
+        User::create([
+            'name' => 'Worker7',
+            'email' => 'worker7@gmail.com',
+            'password' => Hash::make($password),
+        ])->assignRole('Worker');
+
+        User::create([
+            'name' => 'Worker8',
+            'email' => 'worker8@gmail.com',
+            'password' => Hash::make($password),
+        ])->assignRole('Worker');
+
+        User::create([
+            'name' => 'Worker9',
+            'email' => 'worker9@gmail.com',
+            'password' => Hash::make($password),
+        ])->assignRole('Worker');
+
+        User::create([
+            'name' => 'Worker10',
+            'email' => 'worker10@gmail.com',
+            'password' => Hash::make($password),
+        ])->assignRole('Worker');
+
+        User::create([
+            'name' => 'Worker11',
+            'email' => 'worker11@gmail.com',
+            'password' => Hash::make($password),
+        ])->assignRole('Worker');
         
         //User::factory(10)->withPersonalTeam()->create();
     }
