@@ -65,7 +65,7 @@ class PhaseController extends Controller
      */
     public function edit(Phase $phase)
     {
-        //
+        return view('phase.edit', compact('phase'));
     }
 
     /**
@@ -73,7 +73,12 @@ class PhaseController extends Controller
      */
     public function update(Request $request, Phase $phase)
     {
-        //
+        $phase->name = $request->name;
+        $phase->description = $request->description;
+        $phase->initial_date = $request->initial_date;
+        $phase->final_date = $request->final_date;
+        $phase->save();   
+        return redirect()->route('projects.show', $phase);
     }
 
     /**
