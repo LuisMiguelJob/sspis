@@ -78,7 +78,7 @@ class PhaseController extends Controller
         $phase->initial_date = $request->initial_date;
         $phase->final_date = $request->final_date;
         $phase->save();   
-        return redirect()->route('projects.show', $phase);
+        return redirect()->route('projects.show', $phase->project_id);
     }
 
     /**
