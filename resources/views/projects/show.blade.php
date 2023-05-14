@@ -94,51 +94,88 @@
     </div>
 </div>
 <div id="Para_ocultar"><!-- Este div solo existe para dar la sensasión de desenfoque cuando se agrega una fase, pero encierra todo el contendido del proyecto -->
-    <h1>Project: {{$project->name}}</h1>
-    <a href="{{route('projects.index')}}">volver a los proyectos</a><br><br><!--Para regresar a las tarjetas de los proyectos -->
+    <a type="button" class="btn btn-primary" href="{{route('projects.index')}}"> volver a los proyectos </a>
+    {{-- <h2>Project: {{$project->name}}</h2> --}}
 
     <!--Div para mostrar el titulo, descripición del proyecto y los botones de editar y eliminar-->
     @if (count($areYouLeader) > 0)
-        <div style="display:flex">
-            <div style="position:relative; width:86.5%; margin:0px">
-                <p><strong>Encargado del proyecto: {{$leader[0]->name}}</strong></p>
-                <p>Descripción: {{$project->description}}</p>
-            </div>
-            <div style="display:flex">
-                <form action="" method="POST">
-                    @csrf
-                    
-                    <button type="submit" class="btn btn-outline-secondary" style="padding:3px; margin-left:5px">
-                        <a class="btn btn-link text-dark text-gradient px-3 mb-0"><i class="material-icons" style="font-size: 2.5rem">edit</i></a>
-                    </button>
-                </form>
-
+        <div class="row mb-5">
+            <div class="col-6">
+                {{-- Informacion del proyecto --}}
+                <div style="width:86.5%; margin:0px;" class="justify-content-start;">
+                    <div class="card card-body">
                 
-                <button type="submit" class="btn btn-outline-warning" style="padding:3px; margin-left:5px" data-bs-toggle="modal" data-bs-target="#EliminarProyectoModal">
-                    <a class="btn btn-link text-danger text-gradient px-3 mb-0"><i class="material-icons" style="font-size: 2.5rem">delete</i></a>
-                </button>
-
-                <!--Confirmacion para borrar el proyecto-->
-                <div class="modal fade" id="EliminarProyectoModal" data-bs-backdrop="static" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered" style="">
-                        <div class="modal-content" style="border-color: #983434; border-width: thick;">
-                            <form action="{{route('projects.destroy', $project)}}" method="POST">
-                                @csrf
-                                @method('delete')
-                                    <div class="modal-header" style="background-color: #983434;">
-                                        <h3 style="color:rgb(159, 183, 207);">Eliminar proyecto "{{$project->name}}"</h3>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                    </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                                    <button class="btn btn-danger" type="submit">Si, eliminar proyecto</button> 
-                                </div>
-                            </form>
+                        <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
+                            <h4 class="text-white mx-4 d-flex justify-content-center">
+                                Project: {{$project->name}}
+                            </h4> 
+                        </div>
+                
+                        <div class="card-body p-1">
+                            <div class="card-header pb-0">
+                                <p><strong>Encargado del proyecto: {{$leader[0]->name}}</strong></p>
+                                <p>Descripción: {{$project->description}}</p>
+                            </div>
                         </div>
                     </div>
-                </div>    
-
+                </div>
             </div>
+
+            <div class="col-4">
+                {{-- Acciones en el proyecto --}}
+                <div style="width:86.5%; margin:0px;" class="justify-content-start;">
+                    <div class="card card-body">
+                
+                        <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
+                            <h4 class="text-white mx-4 d-flex justify-content-center">
+                                Acciones: 
+                            </h4> 
+                        </div>
+                            {{--  --}}
+
+                            <div style="display:flex; margin-top:25px" class="justify-content-center">
+                                <form action="" method="POST">
+                                    @csrf
+                                    
+                                    <button type="submit" class="btn btn-outline-secondary" style="padding:3px; margin-left:5px">
+                                        <a class="btn btn-link text-dark text-gradient px-3 mb-0"><i class="material-icons" style="font-size: 2.5rem">edit</i></a>
+                                    </button>
+                                </form>
+                
+                                
+                                <button type="submit" class="btn btn-outline-warning" style="padding:3px; margin-left:50px" data-bs-toggle="modal" data-bs-target="#EliminarProyectoModal">
+                                    <a class="btn btn-link text-danger text-gradient px-3 mb-0"><i class="material-icons" style="font-size: 2.5rem">delete</i></a>
+                                </button>
+                
+                                <!--Confirmacion para borrar el proyecto-->
+                                <div class="modal fade" id="EliminarProyectoModal" data-bs-backdrop="static" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered" style="">
+                                        <div class="modal-content" style="border-color: #983434; border-width: thick;">
+                                            <form action="{{route('projects.destroy', $project)}}" method="POST">
+                                                @csrf
+                                                @method('delete')
+                                                    <div class="modal-header" style="background-color: #983434;">
+                                                        <h3 style="color:rgb(159, 183, 207);">Eliminar proyecto "{{$project->name}}"</h3>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                                    <button class="btn btn-danger" type="submit">Si, eliminar proyecto</button> 
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>    
+                
+                            </div>
+
+                            {{--  --}}
+                    </div>
+                </div>
+            </div>
+
+            
+            
         </div>
     @endif
 
