@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Project;
+use App\Models\Phase;
 use App\Models\Task;
 use App\Models\User;
-use App\Models\Phase;
-use App\Models\Project;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -22,7 +22,6 @@ class ProjectController extends Controller
      */
     public function index()
     {
-      
         // con esto retornamos los proyectos que el lider ha creado
         //$rol = Auth::user()->roles->pluck('name')->first();
         //if($rol == "Leader"){
@@ -86,13 +85,19 @@ class ProjectController extends Controller
         return redirect()->route('projects.show', [$project, $phases, $tasks]);//Los últimos 3 parametros, son para tomar el id del proyecto, las fases correspondientes al proceso e igual con las tareas; para ir a la vista de ese proyecto, la que está arriba de este método
     }
 
-
+    public function edit(Project $project)
+    {
+        return view('projects.edit', compact('project'));
+    }
     /**
      * Update the specified resource in storage.
      */
     public function update(Request $request, Project $project)
     {
-        //
+        $project->name = $request->name;
+        $project->description = $request->description;
+        $project->save();
+        return redirect()->route('projects.show', $project);
     }
 
     /**

@@ -53,17 +53,22 @@ class TaskController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Phase $phase)
+    public function edit(Task $task)
     {
-        //
+        return view('task.edit', compact('task'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Phase $phase)
+    public function update(Request $request, Task $task)
     {
-        //
+        $task->name = $request->name;
+        $task->description = $request->description;
+        $task->initial_date = $request->initial_date;
+        $task->final_date = $request->final_date;
+        $task->save();   
+        return redirect()->route('projects.show', $task->id);
     }
 
     /**

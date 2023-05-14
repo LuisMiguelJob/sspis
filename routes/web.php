@@ -51,7 +51,6 @@ Route::get('projects/{project}/{user}/removeWorker', [ProjectController::class, 
 Route::resource('projects', ProjectController::class)->middleware('auth');
 Route::resource('phases', PhaseController::class)->middleware('auth');
 Route::resource('tasks', TaskController::class)->middleware('auth');
-
-Route::get('calendar', [calendarioController::class, 'index'])->name('calendar');
+Route::get('projects/calendar', [calendarioController::class, 'index'])->name('calendar');
 
 
