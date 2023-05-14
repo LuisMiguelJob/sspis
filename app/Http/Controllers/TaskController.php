@@ -68,7 +68,7 @@ class TaskController extends Controller
         $task->initial_date = $request->initial_date;
         $task->final_date = $request->final_date;
         $task->save();   
-        return redirect()->route('projects.show', $task->id);
+        return redirect()->route('projects.show', $task->project_id);
     }
 
     /**
