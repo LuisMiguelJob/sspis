@@ -50,11 +50,3 @@ Route::get('projects/{project}/{user}/removeWorker', [ProjectController::class, 
 Route::resource('projects', ProjectController::class)->middleware('auth');
 Route::resource('phases', PhaseController::class)->middleware('auth');
 Route::resource('tasks', TaskController::class)->middleware('auth');
-Route::post('/projects/{project}/edit', [ProjectController::class, 'edit'])->name('projects.edit');
-Route::put('/projects/{project}/update', [ProjectController::class, 'update'])->name('projects.update');
-Route::post('/tasks/{task}/edit', [TaskController::class, 'edit'])->name('tasks.edit');
-Route::put('/tasks/{task}/update', [TaskController::class, 'update'])->name('tasks.update');
-Route::post('/phases/{phase}/edit',[PhaseController::class, 'edit'])->name('phases.edit');
-Route::put('/phases/{phase}/update',[PhaseController::class, 'update'])->name('phases.update');
-
-
