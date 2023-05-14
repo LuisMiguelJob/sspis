@@ -4,14 +4,14 @@
 
 @section('content')
 
-<a type="button" class="btn btn-primary" href="{{ route('projects.index') }}">
+<a type="button" class="btn btn-info" href="{{ route('projects.index') }}">
     Regresar a proyectos
 </a>
 
 <div class="col-6 col-md-4 mb-4">
     <div class="card card-body">
 
-        <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
+        <div class="bg-gradient-info shadow-info border-radius-lg pt-4 pb-3">
             <h4 class="text-white mx-4">
             Añadir trabajadores
             </h4> 
@@ -31,7 +31,7 @@
                         </select>
                         </div>
             
-                    <button type="submit" class="btn btn-primary mb-4">
+                    <button type="submit" class="btn btn-info mb-4">
                         <span>Agregar</span>
                     </button>
                     @else
@@ -66,7 +66,7 @@
 
 <div class="card my-4">
     <div class="card-header">
-        <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
+        <div class="bg-gradient-info shadow-info border-radius-lg pt-4 pb-3">
             <h4 class="text-white mx-4">
                 Trabajadores en "{{ $project->name }}"
             </h4> 
@@ -110,7 +110,7 @@
                         </th>
 
                         <td class="align-middle">
-                            <a rel="tooltip" class="btn btn-primary btn-link" href={{ route('projects.removeWorker', [$project, $uip]) }} data-original-title="" title="">
+                            <a rel="tooltip" class="btn btn-info btn-link" href={{ route('projects.removeWorker', [$project, $uip]) }} data-original-title="" title="">
                                 Borrar
                                 <div class="ripple-container"></div>
                             </a>
