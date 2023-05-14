@@ -139,8 +139,14 @@ class ProjectController extends Controller
 
     public function addWorker(Request $request, Project $project)
     { 
-        $project->users()->attach($request->worker_id);
+
+        $search = User::where('email', $request->email)->get();
+        if(sizeof($search) > 0 && ($search[0]->id !== Auth::id())){
+            $project->users()->attach($search[0]->id);
+        }
+        
         return redirect()->route('projects.workers', $project);
+
     }
 
     /* 

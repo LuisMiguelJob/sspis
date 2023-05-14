@@ -122,7 +122,6 @@
                                     <hr class="dark horizontal">
                                     <div class="d-flex ">
                                         {{-- @can('projects.workers') --}}
-                                        <a style="width:100%;" href="{{route('projects.workers', $proyectos)}}">Agregar trabajadores</a><br>   
                                         {{-- @endcan --}}
                                         <div style="width:25px"></div>
                                         @if($proyectos->start_date !== '2000-01-01')

@@ -22,7 +22,17 @@
                 <label class="ms-0">Seleccionar trabajador: </label>
                 <form action="{{ route('projects.addWorker', $project) }}" method="POST">
                     @csrf
-                    @if(count($usersWithoutProject) > 0)
+                    <div class="col-md-18">
+                        <div class="input-group input-group-outline my-3">
+                          <label class="form-label">Email</label>
+                          <input name="email" type="email" class="form-control">
+                        </div>
+                      </div>
+                    <button type="submit" class="btn btn-info mb-4">
+                        <span>Agregar</span>
+                    </button>
+
+                    {{--@if(count($usersWithoutProject) > 0)
                         <div class="input-group input-group-static mb-4">
                         <select name="worker_id" class="form-control border-2">
                                 @foreach ($usersWithoutProject as $user)
@@ -36,7 +46,8 @@
                     </button>
                     @else
                         <h4>Sin opciones</h4>
-                    @endif
+                    @endif--}}
+
                 </form>
             </div>
         </div>
