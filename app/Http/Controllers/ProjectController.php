@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Project;
-use App\Models\Phase;
 use App\Models\Task;
 use App\Models\User;
+use App\Models\Phase;
+use App\Models\Project;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -22,6 +22,7 @@ class ProjectController extends Controller
      */
     public function index()
     {
+      
         // con esto retornamos los proyectos que el lider ha creado
         //$rol = Auth::user()->roles->pluck('name')->first();
         //if($rol == "Leader"){

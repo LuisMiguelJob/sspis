@@ -48,6 +48,8 @@
         @if (sizeof($proyectosLider) > 0)
 
         <h2>Proyectos Liderados</h2>
+        <br>
+        <a  href="{{route('calendar')}}">Mostrar calendario</a>
         <div id="container" style="display: flex; flex-wrap: wrap;">
             @foreach ($proyectosLider as $proyectos)<!--Por cada proyecto que exista del lider se crea como una tarjetita-->
             <a href="{{route('projects.show', $proyectos->id)}}">

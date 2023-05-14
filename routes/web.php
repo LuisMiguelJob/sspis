@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\calendarioController;
 use App\Http\Controllers\PhaseController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\TaskController;
@@ -51,5 +52,6 @@ Route::resource('projects', ProjectController::class)->middleware('auth');
 Route::resource('phases', PhaseController::class)->middleware('auth');
 Route::resource('tasks', TaskController::class)->middleware('auth');
 
+Route::get('calendar', [calendarioController::class, 'index'])->name('calendar');
 
 
