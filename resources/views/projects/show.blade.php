@@ -134,7 +134,7 @@
                             {{--  --}}
 
                             <div style="display:flex; margin-top:25px" class="justify-content-center">
-                                <form action="{{route('projects.edit', $project->id)}}" method="POST">
+                                <form action="{{route('projects.edit', $project->id)}}" method="GET">
                                     @csrf
                                     
                                     <button type="submit" class="btn btn-outline-secondary" style="padding:3px; margin-left:5px">
@@ -241,7 +241,7 @@
                             <!--Divs para los botones dentro de la tarea, son en orden: añadir tarea, editar y borrar-->
                             @if (count($areYouLeader) > 0)
                                 <div style="display:flex; flex-direction:column; margin:0px 15px; justify-content:flex-end; cursor:pointer;">
-                                    <form action="{{route('tasks.edit', $task)}}" method="POST">
+                                    <form action="{{route('tasks.edit', $task)}}" method="GET">
                                         @csrf
                                         <input type="hidden" name="task" value="{{ $task->id }}">
                                         <button style="width:100%;" type="submit" class="btn btn-info">
@@ -340,7 +340,7 @@
                         + Añadir tarea
                     </button></div>
                     
-                    <form action="{{route('phases.edit', $phase)}}" method="POST">
+                    <form action="{{route('phases.edit', $phase)}}" method="GET">
                         @csrf
                         <input type="hidden" name="phase" value="{{ $phase->id }}"> 
                         <button style="width:100%;" type="submit" class="btn btn-info">
