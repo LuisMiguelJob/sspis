@@ -113,17 +113,17 @@
         <div id="container" style="display: flex; flex-wrap: wrap;">
             @foreach ($proyectosTrabajador as $proyectos)<!--Por cada proyecto que exista del lider se crea como una tarjetita-->
             <a href="{{route('projects.show', $proyectos->id)}}">
-                <div class="row mt-4" style="margin-right:1px">
-                    <div class="col-lg-10 col-md-6 mb-4">
+                <div class="row mt-4" style="margin-right:10px;">
+                    <div class="col-lg-10 col-md-6 mb-4" style="width:16rem">
                         <div class="card z-index-2">
                                 <div class="card-body">
                                     <h6 class="mb-0 ">{{$proyectos->name}}</h6>
                                     <p class="text-sm ">{{$proyectos->description}}</p>
                                     <hr class="dark horizontal">
                                     <div class="d-flex ">
+
                                         {{-- @can('projects.workers') --}}
                                         {{-- @endcan --}}
-                                        <div style="width:25px"></div>
                                         @if($proyectos->start_date !== '2000-01-01')
                                             <i class="material-icons text-sm my-auto me-1">schedule</i>
                                             <p class="mb-0 text-sm">{{$proyectos->start_date}} / {{$proyectos->final_date}}</p>

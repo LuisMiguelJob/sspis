@@ -301,7 +301,6 @@
                 @endforeach
 
                 <!--Form para agregar la tarea-->
-
                 <div id="Ptask{{$phase->id}}" style="width:50%; display:none; position: relative; margin-top:10px" class="card card-body md-4">
                     <form action="{{route('tasks.store')}}" method="POST">
                         @csrf
@@ -375,17 +374,13 @@
                 @endif
             </div>
             
-
         </div>
     @endforeach
 
     @if (count($areYouLeader) > 0) 
-
         <button style="margin-top: 10px;" type="button" class="btn btn-success" onclick="createPhase()">
             + Añadir fase
         </button>
-
-
     @endif  
 
 </div>
