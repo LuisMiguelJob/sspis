@@ -97,8 +97,6 @@
     <a type="button" class="btn btn-primary" href="{{route('projects.index')}}"> volver a los proyectos </a>
     {{-- <h2>Project: {{$project->name}}</h2> --}}
 
-    <!--Div para mostrar el titulo, descripición del proyecto y los botones de editar y eliminar-->
-    @if (count($areYouLeader) > 0)
         <div class="row mb-5">
             <div class="col-6">
                 {{-- Informacion del proyecto --}}
@@ -120,7 +118,8 @@
                     </div>
                 </div>
             </div>
-
+    <!--Div para mostrar el titulo, descripición del proyecto y los botones de editar y eliminar-->
+    @if (count($areYouLeader) > 0)
             <div class="col-4">
                 {{-- Acciones en el proyecto --}}
                 <div style="width:86.5%; margin:0px;" class="justify-content-start;">
