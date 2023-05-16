@@ -20,6 +20,6 @@ class calendarioController extends Controller
         }
 
         return view('projects.calendar', compact('events'));
-        
+   
     }
 }

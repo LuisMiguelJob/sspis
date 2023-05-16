@@ -16,20 +16,25 @@ class EventSeeder extends Seeder
         //
         $events=[
         [
-            'event'=>'cita#1',
-            'start_date'=>'2023-05-18 08:00',
+            'event'=>'Tarea 1',
+            'start_date'=>'2023-05-16 08:00',
             'end_date'=>'2023-05-18 11:00',
         ],
         [
-            'event'=>'cita#2',
+            'event'=>'Tarea 2',
             'start_date'=>'2023-06-18 08:00',
-            'end_date'=>'2023-07-18 11:00',
+            'end_date'=>'2023-07-21 11:00',
         ],
         [
-            'event'=>'cita#3',
-            'start_date'=>'2023-05-18 09:00',
-            'end_date'=>'2023-05-18 12:00',
+            'event'=>'Tarea 3',
+            'start_date'=>'2023-05-22 09:00',
+            'end_date'=>'2023-05-23 12:00',
         ],
+        [
+            'event'=>'Tarea 4',
+            'start_date'=>'2023-05-17 11:00',
+            'end_date'=>'2023-05-23 13:00',
+        ] 
     ];
         foreach($events as $event){
             Event::create($event);
