@@ -63,9 +63,9 @@ class PhaseController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Phase $phase)
+    public function edit(Phase $phase, Project $project)
     {
-        return view('phase.edit', compact('phase'));
+        return view('phase.edit', compact(['phase', 'project']));
     }
 
     /**
@@ -73,6 +73,13 @@ class PhaseController extends Controller
      */
     public function update(Request $request, Phase $phase)
     {
+        $request->validate([
+            'name' => ['required', 'string', 'min:5', 'max:255'],
+            'description' => ['required', 'string', 'min:5', 'max:255'],
+            'initial_date' => ['required', 'date'],
+            'final_date' => ['required', 'date',],
+        ]);
+
         $phase->name = $request->name;
         $phase->description = $request->description;
         $phase->initial_date = $request->initial_date;

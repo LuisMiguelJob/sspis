@@ -49,8 +49,10 @@ Route::get('projects/{project}/workers', [ProjectController::class, 'workers'])-
 Route::post('projects/{project}/addWorker', [ProjectController::class, 'addWorker'])->name('projects.addWorker')->middleware('auth');
 Route::get('projects/{project}/{user}/removeWorker', [ProjectController::class, 'removeWorker'])->name('projects.removeWorker')->middleware('auth');
 Route::resource('projects', ProjectController::class)->middleware('auth');
-Route::resource('phases', PhaseController::class)->middleware('auth');
-Route::resource('tasks', TaskController::class)->middleware('auth');
+Route::get('/phases/{phase}/{project}/edit',[PhaseController::class, 'edit'])->name('phases.edit');
+Route::resource('phases', PhaseController::class, ['except' => ['edit']])->middleware('auth');
+Route::get('/tasks/{task}/{project}/edit', [TaskController::class, 'edit'])->name('tasks.edit');
+Route::resource('tasks', TaskController::class, ['except' => ['edit']])->middleware('auth');
 Route::get('/calendario-prueba', [calendarioController::class, 'index'])->name('calendario');
 
 

@@ -53,9 +53,9 @@ class TaskController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Task $task)
+    public function edit(Task $task, Project $project)
     {
-        return view('task.edit', compact('task'));
+        return view('task.edit', compact(['task', 'project']));
     }
 
     /**
@@ -63,6 +63,13 @@ class TaskController extends Controller
      */
     public function update(Request $request, Task $task)
     {
+        $request->validate([
+            'name' => ['required', 'string', 'min:5', 'max:255'],
+            'description' => ['required', 'string', 'min:5', 'max:255'],
+            'initial_date' => ['required', 'date'],
+            'final_date' => ['required', 'date',],
+        ]);
+        
         $task->name = $request->name;
         $task->description = $request->description;
         $task->initial_date = $request->initial_date;
