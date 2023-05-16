@@ -19,7 +19,11 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
     {
         Validator::make($input, [
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'email', 'max:255', Rule::unique('users')->ignore($user->id)],
+            'email' => ['required', 'email', 'max:255',function($attribute,$value,$fail){
+                if(! Str::endsWith($value,'@alumnos.udg.mx')){
+                    $fail('El correo electrónico debe ser un correo alumnos.udg.mx');
+                }
+            }, Rule::unique('users')->ignore($user->id)],
             'photo' => ['nullable', 'mimes:jpg,jpeg,png', 'max:1024'],
         ])->validateWithBag('updateProfileInformation');
 

@@ -12,6 +12,7 @@ use Laravel\Jetstream\Events\AddingTeamMember;
 use Laravel\Jetstream\Events\TeamMemberAdded;
 use Laravel\Jetstream\Jetstream;
 use Laravel\Jetstream\Rules\Role;
+use App\Notifications\NotiAgregado;
 
 class AddTeamMember implements AddsTeamMembers
 {
@@ -33,6 +34,8 @@ class AddTeamMember implements AddsTeamMembers
         );
 
         TeamMemberAdded::dispatch($team, $newTeamMember);
+
+        $user->notify(new NotiAgregado());
     }
 
     /**
