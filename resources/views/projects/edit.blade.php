@@ -13,7 +13,7 @@
         <h2>Editar datos de proyecto: "{{ $project->name }}"</h2><br>
             <div class="mb-3 col-md-6">
                 <label class="form-label">Nombre</label>
-                <input type="text" class="form-control border border-2 p-2" name="name" value="{{ $project->name }}" onfocus="focused(this)" onfocusout="defocused(this)">
+                <input style="width:200%" type="text" class="form-control border border-2 p-2" name="name" value="{{ $project->name }}" onfocus="focused(this)" onfocusout="defocused(this)">
             </div>
             @error('name')
                     <p class="text-danger inputerror"> {{ $message }} </p>    

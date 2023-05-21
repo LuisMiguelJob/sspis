@@ -19,15 +19,22 @@ class TaskController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Project $project, Phase $phase)
     {
-        //
+        return view('task.create', compact(['project', 'phase']));
     }
 
     /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request){//Store de la tarea, una vez creada te redirige a la página para ver los detalles de ese proyecto con la nueva tarea
+        $request->validate([
+            'name' => ['required', 'string', 'min:5', 'max:255'],
+            'description' => ['required', 'string', 'min:5', 'max:255'],
+            'initial_date' => ['required', 'date'],
+            'final_date' => ['required', 'date',],
+        ]);
+        
         $task = new Task();
         $task->name = $request->name;
         $task->progress = 0;
@@ -53,9 +60,9 @@ class TaskController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Task $task, Project $project)
+    public function edit(Task $task, Project $project, Phase $phase)
     {
-        return view('task.edit', compact(['task', 'project']));
+        return view('task.edit', compact(['task', 'project', 'phase']));
     }
 
     /**

@@ -154,7 +154,7 @@
                                                 @csrf
                                                 @method('delete')
                                                     <div class="modal-header" style="background-color: #983434;">
-                                                        <h3 style="color:rgb(159, 183, 207);">Eliminar proyecto "{{$project->name}}"</h3>
+                                                        <h3 style="color: white;">Eliminar proyecto "{{$project->name}}"</h3>
                                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                     </div>
                                                 <div class="modal-footer">
@@ -178,8 +178,163 @@
         </div>
     @endif
 
+    {{-- Desde aqui empieza el fragmento de codigo donde se muestran las fases y las tareas --}}
+
+    {{-- Aqui estara el nuevo diseño de fases y tareas --}}
+    <h2 class="mb-4">Fases y tareas</h2>
+
+    @if (count($areYouLeader) > 0) 
+        <a style="margin-top: 5px;" href="{{ route('phases.create', $project) }}" type="button" class="btn btn-success">
+            + Añadir fase
+        </a>
+    @endif  
+
+    @foreach ($phases as $number=>$phase)
+    
+    <div class="row mb-5">
+        <div class="col-6 " style="width:100%">
+            <div class="col-12">
+                {{-- Informacion del proyecto --}}
+                <div style="width:100%; margin:0px;">
+                    <div class="card card-body">
+                
+                        <div class="bg-gradient-info shadow-info border-radius-lg pt-4 pb-3">
+                            <h4 style="width:fit-content;float:left;" class="text-white mx-4 d-flex">
+                                Fase {{ $number + 1 }} : "{{ $phase->name }}"
+                            </h4> 
+                            <h4 style="width:fit-content;float:right;" class="text-white mx-4 d-flex">
+                                Fecha: {{ $phase->initial_date }} - {{ $phase->final_date }}
+                            </h4> 
+                        </div>
+
+                        <div class="card-body p-1 mt-4 ps-4" style="height:fit-content;">
+                            <p> DESCRIPCION: {{$phase->description}} </p> 
+                        </div>
+
+                        <div class="card-body p-1 ps-4" style="height:fit-content;">
+                            <p class="ps-1 mt-2" style="width:fit-content;float:left;font-weight:bold">
+                                Acciones en la fase: 
+                            </p>
+
+                            <p style="width:fit-content;float:left" class="ps-5">
+                                <a type="button" href="{{ route('tasks.create', [$project, $phase]) }}" class="btn btn-success">
+                                    Añadir tarea
+                                </a>
+                            </p>
+
+                            <p style="width:fit-content;float:left" class="ps-5">
+                                <a style="width:100%;" href="{{ route('phases.edit', [$phase, $project]) }}" class="btn btn-info">
+                                    Editar fase
+                                </a>
+                            </p>
+
+                            <p style="width:fit-content;float:left" class="ps-5">
+                                <button style="width:100%;" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#EliminarFaseModal{{$phase->id}}">
+                                    Eliminar fase
+                                </button>
+            
+                                <!--Confirmacion para borrar la fase-->
+                                <div class="modal fade" id="EliminarFaseModal{{$phase->id}}" data-bs-backdrop="static" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered" style="">
+                                        <div class="modal-content" style="border-color: #983434; border-width: thick;">
+                                            <form action="{{route('phases.destroy', $phase)}}" method="POST">
+                                                @csrf
+                                                @method('delete')
+                                                    <div class="modal-header" style="background-color: #983434;">
+                                                        <h3 style="color:white">Eliminar la fase: "{{$phase->name}}"</h3>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                                    <button class="btn btn-danger" type="submit">Si, eliminar fase</button> 
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </p>
+                        
+                        </div>
+
+                        {{-- Impresion de las tareas --}}
+
+                        @foreach ($tasks as $task)
+                            @if($task->phase_id == $phase->id)
+                                <div class="card-body p-1">
+                                    <div style="width:79%;float:left;" class="card-header pb-0 float:left d-flex">
+                                        {{--  --}}
+                                        <div class="card card-body">
+                                            <div class="bg-gradient-success shadow-success border-radius-lg pt-3 pb-2">
+                                                <h4 style="width:fit-content;float:left;" class="text-white mx-4 d-flex">
+                                                    Tarea: "{{ $task->name }}"
+                                                </h4>
+                                                
+                                            </div>
+                                            <div class="card-body p-1 mt-4 ps-4" style="height:fit-content;">
+                                                <p> DESCRIPCION: {{$task->description}} </p> 
+                                            </div>
+                                            <div class="card-body p-1 ps-4" style="height:fit-content;">
+                                                <p> fecha: {{$task->initial_date}} - {{ $task->final_date }} </p> 
+                                            </div>
+                                        </div>
+                                        {{--  --}}
+                                    </div>
+                                    <div style="width:19%;float:left;" class="card-header pb-0 float:left d-flex d-flex justify-content-center">
+                                        <p style="width:fit-content;float:left" class="">
+                                            <a type="button"  class="btn btn-success">
+                                                Ver tarea????
+                                            </a>
+                                        </p>
+                                    </div>
+                                    <div style="width:19%;float:left;" class="card-header pb-0 float:left d-flex d-flex justify-content-center">
+                                        <p style="width:fit-content;float:left" class="">
+                                            <a style="width:100%;" href="{{ route('tasks.edit', [$task, $project, $phase]) }}" class="btn btn-info">
+                                                Editar tarea
+                                            </a>
+                                        </p>
+                                    </div>
+                                    <div style="width:19%;float:left;" class="card-header pb-0 float:left d-flex d-flex justify-content-center">
+                                        <p style="width:fit-content;float:left" class="">
+                                            <button style="width:100%;" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#EliminarTareaModal{{$task->id}}">
+                                                Eliminar tarea
+                                            </button>
+
+                                            <!--Confirmacion para borrar la tarea-->
+                                            <div class="modal fade" id="EliminarTareaModal{{$task->id}}" data-bs-backdrop="static" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog modal-dialog-centered" style="">
+                                                    <div class="modal-content" style="border-color: #983434; border-width: thick;">
+                                                        <form action="{{route('tasks.destroy', $task)}}" method="POST">
+                                                            @csrf
+                                                            @method('delete')
+                                                                <div class="modal-header" style="background-color: #983434;">
+                                                                    <h3 style="color: white;">Eliminar la tarea: "{{$task->name}}" de la fase "{{$phase->name}}" </h3>
+                                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                                                <button class="btn btn-danger" type="submit">Si, eliminar tarea</button> 
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </p>
+                                    </div>
+                                </div>
+                            @endif
+                        @endforeach
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @endforeach
+    
     <!--Se muestra un 4each de cada fase de este proyecto, que se recupera desde el "show" que llega como parametro-->
-    @foreach ($phases as $phase)
+    {{-- @foreach ($phases as $phase)
 
         <!--"Abre" la ficha de la fase para ver y agregar tareas, solo está en display:none-->
         <div id="{{$phase->id}}" onclick="showInfo(1, {{$phase->id}})" style="cursor: pointer;box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.16); border-radius: 0.5rem 0.5rem 0rem 0rem; background-color: darkgray; position:reative; height: 45px; color:black; padding: 8px; margin-top: 10px;">
@@ -374,13 +529,9 @@
             </div>
             
         </div>
-    @endforeach
+    @endforeach --}}
 
-    @if (count($areYouLeader) > 0) 
-        <button style="margin-top: 10px;" type="button" class="btn btn-success" onclick="createPhase()">
-            + Añadir fase
-        </button>
-    @endif  
+    {{-- Aqui termina el codigo dedicado para fases y tareas --}}
 
 </div>
     
