@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 use App\Models\Project;
 use App\Models\Phase;
 use App\Models\Task;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class TaskController extends Controller
@@ -52,9 +54,16 @@ class TaskController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Phase $phase)
+    public function show(Task $task, Project $project)
     {
-        //
+        // comprobar si hay un registro donde el usuario sea lider del proyecto seleccionado
+        $areYouLeader = Project::where('id', $project->id)->where('user_id', Auth::id())->get();
+
+        /* Variable para traer los trabajadores relacionados en este proyecto */
+        $usuariosProyecto = $project->users;
+        /*  */
+
+        return view('task.show', compact(['task', 'project', 'usuariosProyecto', 'areYouLeader']));
     }
 
     /**
@@ -93,5 +102,13 @@ class TaskController extends Controller
         //$phase->users()->detach();
         $task->delete();
         return redirect()->route('projects.show', $task->project_id);
+    }
+
+    public function addWorkerTask(Request $request, Task $task, Project $project)
+    { 
+        $task->user_id = $request->worker_id;
+        $task->save();
+        return redirect()->route('tasks.show', [$task, $project]);
+
     }
 }

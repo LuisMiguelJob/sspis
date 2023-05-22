@@ -45,6 +45,7 @@ Route::get('/', function () { // Arregle un error, cuando quieres ir a la url "s
 
 Route::post('program/users/{user}/updatePassword', [UserController::class, 'updatePassword'])->name('users.updatePassword')->middleware('auth');
 Route::resource('users', UserController::class)->middleware('auth')->middleware('auth');
+
 Route::get('projects/{project}/workers', [ProjectController::class, 'workers'])->name('projects.workers')->middleware('auth');
 Route::post('projects/{project}/addWorker', [ProjectController::class, 'addWorker'])->name('projects.addWorker')->middleware('auth');
 Route::get('projects/{project}/{user}/removeWorker', [ProjectController::class, 'removeWorker'])->name('projects.removeWorker')->middleware('auth');
@@ -54,9 +55,12 @@ Route::get('/phases/{project}/create',[PhaseController::class, 'create'])->name(
 Route::get('/phases/{phase}/{project}/edit',[PhaseController::class, 'edit'])->name('phases.edit');
 Route::resource('phases', PhaseController::class, ['except' => ['edit', 'create']])->middleware('auth');
 
+Route::get('/tasks/{task}/{project}/addWorkerTask', [TaskController::class, 'addWorkerTask'])->name('tasks.addWorkerTask'); // Añadir trabajador a una tarea
+Route::get('/tasks/{task}/{project}/show', [TaskController::class, 'show'])->name('tasks.show');
 Route::get('/tasks/{project}/{phase}/create', [TaskController::class, 'create'])->name('tasks.create');
 Route::get('/tasks/{task}/{project}/{phase}/edit', [TaskController::class, 'edit'])->name('tasks.edit');
-Route::resource('tasks', TaskController::class, ['except' => ['edit', 'create']])->middleware('auth');
+Route::resource('tasks', TaskController::class, ['except' => ['edit', 'create', 'show']])->middleware('auth');
+
 Route::get('/calendario-prueba', [calendarioController::class, 'index'])->name('calendario');
 
 

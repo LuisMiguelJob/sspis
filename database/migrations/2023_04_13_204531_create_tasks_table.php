@@ -19,6 +19,7 @@ return new class extends Migration
             $table->date('final_date');
             $table->text('description');
             $table->text('comments');
+            $table->foreignId('user_id')->nullable()->constrained()->cascadeOnDelete(); // propietario de la tarea
             $table->foreignId('phase_id')->constrained()->cascadeOnDelete();
             $table->foreignId('project_id')->constrained()->cascadeOnDelete();
             $table->timestamps();
