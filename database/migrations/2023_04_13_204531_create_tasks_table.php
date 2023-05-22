@@ -18,7 +18,8 @@ return new class extends Migration
             $table->date('initial_date');
             $table->date('final_date');
             $table->text('description');
-            $table->text('comments');
+            $table->text('delivery'); // entregable de la tarea
+            $table->boolean('complete')->default(false); // booleano que dice si la tarea fue completada
             $table->foreignId('user_id')->nullable()->constrained()->cascadeOnDelete(); // propietario de la tarea
             $table->foreignId('phase_id')->constrained()->cascadeOnDelete();
             $table->foreignId('project_id')->constrained()->cascadeOnDelete();

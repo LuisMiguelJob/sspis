@@ -41,7 +41,7 @@ class TaskController extends Controller
         $task->name = $request->name;
         $task->progress = 0;
         $task->description = $request->description;
-        $task->comments = "";
+        $task->delivery = "";
         $task->initial_date = $request->initial_date;
         $task->final_date = $request->final_date;
         $task->phase_id = $request->phase_id;
@@ -59,8 +59,10 @@ class TaskController extends Controller
         // comprobar si hay un registro donde el usuario sea lider del proyecto seleccionado
         $areYouLeader = Project::where('id', $project->id)->where('user_id', Auth::id())->get();
 
-        /* Variable para traer los trabajadores relacionados en este proyecto */
+        /* Variable para traer los trabajadores relacionados en este proyecto, se agrega al lider como opcion elegible para ejecutar tareas */
         $usuariosProyecto = $project->users;
+        $usuariosProyecto =  $usuariosProyecto->push(Auth::user());
+        
         /*  */
 
         return view('task.show', compact(['task', 'project', 'usuariosProyecto', 'areYouLeader']));
@@ -110,5 +112,19 @@ class TaskController extends Controller
         $task->save();
         return redirect()->route('tasks.show', [$task, $project]);
 
+    }
+
+    public function finishTask(Request $request, Task $task, Project $project)
+    { 
+        if($task->complete){
+            $task->complete = false;
+        }
+        else{
+            $task->complete = true;
+            $task->delivery = $request->description;
+        }
+        $task->save();
+
+        return redirect()->route('tasks.show', [$task, $project]);
     }
 }

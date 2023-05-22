@@ -266,20 +266,20 @@
                                                 </h4>
                                                 
                                             </div>
-                                            <div class="card-body p-1 mt-4 ps-4" style="height:fit-content;">
-                                                <p> DESCRIPCION: {{$task->description}} </p> 
-                                            </div>
-                                            <div class="card-body p-1 ps-4" style="height:fit-content;">
-                                                <p> fecha: {{$task->initial_date}} - {{ $task->final_date }} </p> 
-                                            </div>
-                                            <div class="card-body p-1 ps-4" style="height:fit-content;">
-                                                <p> Encargado de la tarea: 
+                                            <div class="card-body p-1 ps-4 mt-4" style="height:fit-content;">
+                                                <b style="font-size:20px"> Encargado de la tarea: 
                                                     @if($task->user_id == null)
                                                         "TRABAJADOR NO ASIGNADO"
                                                     @else   
                                                         {{ $task->user->name }}
                                                     @endif  
-                                                </p> 
+                                                </b> 
+                                            </div>
+                                            <div class="card-body p-1 ps-4" style="height:fit-content;">
+                                                <p> DESCRIPCION: {{$task->description}} </p> 
+                                            </div>
+                                            <div class="card-body p-1 ps-4" style="height:fit-content;">
+                                                <p> fecha: {{$task->initial_date}} - {{ $task->final_date }} </p> 
                                             </div>
                                         </div>
                                     </div>

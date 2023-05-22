@@ -55,6 +55,7 @@ Route::get('/phases/{project}/create',[PhaseController::class, 'create'])->name(
 Route::get('/phases/{phase}/{project}/edit',[PhaseController::class, 'edit'])->name('phases.edit');
 Route::resource('phases', PhaseController::class, ['except' => ['edit', 'create']])->middleware('auth');
 
+Route::get('/tasks/{task}/{project}/finishTask', [TaskController::class, 'finishTask'])->name('tasks.finishTask');
 Route::get('/tasks/{task}/{project}/addWorkerTask', [TaskController::class, 'addWorkerTask'])->name('tasks.addWorkerTask'); // Añadir trabajador a una tarea
 Route::get('/tasks/{task}/{project}/show', [TaskController::class, 'show'])->name('tasks.show');
 Route::get('/tasks/{project}/{phase}/create', [TaskController::class, 'create'])->name('tasks.create');

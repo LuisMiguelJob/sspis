@@ -64,8 +64,46 @@
     @endif
 </div>
 
+@if ($task->user_id == Auth::id())
+    <div class="row mb-12 border black">
+        <div class="row mb-5">
+            <div class="col-12">
+                <div style="width:86.5%; margin:0px;" class="justify-content-start;">
+                    <div class="card card-body">
+                        <form action="{{ route('tasks.finishTask', [$task, $project])}}" method="PUT">
+                            <div class="bg-gradient-success shadow-success border-radius-lg pt-4 pb-3">
+                                <h4 class="text-white mx-4 d-flex justify-content-center">
+                                    Detalles de entrega: 
+                                    @if($task->complete)
+                                        Entregado
+                                    @else
+                                        No Entregado
+                                    @endif
+                                </h4> 
+                            </div>
+                    
+                            <div class="card-body p-1">
+                                <textarea @if($task->complete) disabled @endif
+                                    style="font-size:20px" class="form-control" rows="5" placeholder="Descripcion de la tarea" spellcheck="false" name="description">{{ $task->delivery ?? '' }}</textarea>
+                            </div>
 
+                            @if($task->complete == false)
+                                <button type="submit" class="btn btn-info mb-4">
+                                    <span>Añadir entrega</span>
+                                </button>
+                            @else
+                                <button type="submit" class="btn btn-info mb-4">
+                                    <span>Cancelar entrega</span>
+                                </button>
+                            @endif
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+@else
+    <h2>La tarea no se te ha asignado por el lider</h2>
+@endif
     
-
-
 @endsection
