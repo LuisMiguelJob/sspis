@@ -47,17 +47,32 @@ class ProjectController extends Controller
      */
     public function show($id){//este show te lleva a la pagina para ver TODOS los detalles del proyecto; en caso de crear uno, como no tiene fase, se va como paremetro 0, y no muestrar ningúna fase, pq no hay
 
+        $existeProyecto = Project::find($id);
+        if(!(isset($existeProyecto))){
+            return redirect()->route('projects.index');
+        }
+
         // comprobar si hay un registro donde el usuario sea lider del proyecto seleccionado
         $areYouLeader = Project::where('id', $id)->where('user_id', Auth::id())->get();
 
-        $project = Project::find($id);
-        $phases = Phase::where('project_id', $id)->get();
-        $leader = User::where('id', $project->user_id)->get();//Recupera la info del usuario que crea el proyecto para mostrarlo en el show
-        if(sizeof($phases) > 0)
-            $tasks = Task::where('project_id', $id)->get();
-        else
-            $tasks = Task::where('phase_id', 0)->get();
-        return view('projects.show', ['project'=>$project], compact('phases', 'tasks', 'leader', 'areYouLeader'));
+        // comprobar que el usuario es parte del proyecto
+        $areYouWorker = Project::find($id)->users->where('id', Auth::id());
+
+        // si eres un trabajador o un lider, puedes entrar a la vista del proyecto
+        if(count($areYouWorker) == 1 || count($areYouLeader) == 1){
+            $project = Project::find($id);
+            $phases = Phase::where('project_id', $id)->get();
+            $leader = User::where('id', $project->user_id)->get();//Recupera la info del usuario que crea el proyecto para mostrarlo en el show
+            if(sizeof($phases) > 0)
+                $tasks = Task::where('project_id', $id)->get();
+            else
+                $tasks = Task::where('phase_id', 0)->get();
+            return view('projects.show', ['project'=>$project], compact('phases', 'tasks', 'leader', 'areYouLeader'));
+        }else{
+            return redirect()->route('projects.index');
+        }
+
+       
     }
 
     public function store(Request $request){//Store del proyecto sin fase ni tarea, una vez creado te redirige a la página para ver los detalles de ese proyecto

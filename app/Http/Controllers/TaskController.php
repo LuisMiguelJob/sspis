@@ -56,16 +56,26 @@ class TaskController extends Controller
      */
     public function show(Task $task, Project $project)
     {
+        // comprobar que el usuario es parte del proyecto
+        $areYouWorker = $project->users->where('id', Auth::id());
+
         // comprobar si hay un registro donde el usuario sea lider del proyecto seleccionado
         $areYouLeader = Project::where('id', $project->id)->where('user_id', Auth::id())->get();
 
-        /* Variable para traer los trabajadores relacionados en este proyecto, se agrega al lider como opcion elegible para ejecutar tareas */
-        $usuariosProyecto = $project->users;
-        $usuariosProyecto =  $usuariosProyecto->push(Auth::user());
-        
-        /*  */
+        if(count($areYouWorker) == 1 || count($areYouLeader) == 1){
+            // comprobar si hay un registro donde el usuario sea lider del proyecto seleccionado
+            $areYouLeader = Project::where('id', $project->id)->where('user_id', Auth::id())->get();
 
-        return view('task.show', compact(['task', 'project', 'usuariosProyecto', 'areYouLeader']));
+            /* Variable para traer los trabajadores relacionados en este proyecto, se agrega al lider como opcion elegible para ejecutar tareas */
+            $usuariosProyecto = $project->users;
+            $usuariosProyecto =  $usuariosProyecto->push(Auth::user());
+
+            return view('task.show', compact(['task', 'project', 'usuariosProyecto', 'areYouLeader']));
+        }else{
+            return redirect()->route('projects.index');
+        }
+
+        
     }
 
     /**
