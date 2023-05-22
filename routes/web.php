@@ -51,17 +51,17 @@ Route::post('projects/{project}/addWorker', [ProjectController::class, 'addWorke
 Route::get('projects/{project}/{user}/removeWorker', [ProjectController::class, 'removeWorker'])->name('projects.removeWorker')->middleware('auth');
 Route::resource('projects', ProjectController::class)->middleware('auth');
 
-Route::get('/phases/{project}/create',[PhaseController::class, 'create'])->name('phases.create');
-Route::get('/phases/{phase}/{project}/edit',[PhaseController::class, 'edit'])->name('phases.edit');
+Route::get('/phases/{project}/create',[PhaseController::class, 'create'])->name('phases.create')->middleware('auth');;
+Route::get('/phases/{phase}/{project}/edit',[PhaseController::class, 'edit'])->name('phases.edit')->middleware('auth');;
 Route::resource('phases', PhaseController::class, ['except' => ['edit', 'create']])->middleware('auth');
 
-Route::get('/tasks/{task}/{project}/finishTask', [TaskController::class, 'finishTask'])->name('tasks.finishTask');
-Route::get('/tasks/{task}/{project}/addWorkerTask', [TaskController::class, 'addWorkerTask'])->name('tasks.addWorkerTask'); // Añadir trabajador a una tarea
-Route::get('/tasks/{task}/{project}/show', [TaskController::class, 'show'])->name('tasks.show');
-Route::get('/tasks/{project}/{phase}/create', [TaskController::class, 'create'])->name('tasks.create');
-Route::get('/tasks/{task}/{project}/{phase}/edit', [TaskController::class, 'edit'])->name('tasks.edit');
+Route::get('/tasks/{task}/{project}/finishTask', [TaskController::class, 'finishTask'])->name('tasks.finishTask')->middleware('auth');;
+Route::get('/tasks/{task}/{project}/addWorkerTask', [TaskController::class, 'addWorkerTask'])->name('tasks.addWorkerTask')->middleware('auth');; // Añadir trabajador a una tarea
+Route::get('/tasks/{task}/{project}/show', [TaskController::class, 'show'])->name('tasks.show')->middleware('auth');;
+Route::get('/tasks/{project}/{phase}/create', [TaskController::class, 'create'])->name('tasks.create')->middleware('auth');;
+Route::get('/tasks/{task}/{project}/{phase}/edit', [TaskController::class, 'edit'])->name('tasks.edit')->middleware('auth');;
 Route::resource('tasks', TaskController::class, ['except' => ['edit', 'create', 'show']])->middleware('auth');
 
-Route::get('/calendario-prueba', [calendarioController::class, 'index'])->name('calendario');
+Route::get('/calendario-prueba', [calendarioController::class, 'index'])->name('calendario')->middleware('auth');;
 
 
