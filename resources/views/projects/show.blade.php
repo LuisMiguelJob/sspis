@@ -271,7 +271,7 @@
                                                     @if($task->user_id == null)
                                                         "TRABAJADOR NO ASIGNADO"
                                                     @else   
-                                                        {{ $task->user->name }}
+                                                        "{{ $task->user->name }}"
                                                     @endif  
                                                 </b> 
                                             </div>

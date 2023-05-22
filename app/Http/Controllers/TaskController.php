@@ -109,6 +109,8 @@ class TaskController extends Controller
     public function addWorkerTask(Request $request, Task $task, Project $project)
     { 
         $task->user_id = $request->worker_id;
+        $task->delivery = "";
+        $task->complete = false;
         $task->save();
         return redirect()->route('tasks.show', [$task, $project]);
 
@@ -116,6 +118,10 @@ class TaskController extends Controller
 
     public function finishTask(Request $request, Task $task, Project $project)
     { 
+        $request->validate([
+            'description' => ['required', 'string', 'min:5', 'max:255'],
+        ]);
+
         if($task->complete){
             $task->complete = false;
         }
