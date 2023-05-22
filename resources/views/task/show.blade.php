@@ -85,7 +85,7 @@
                             <div class="card-body p-1">
                                 <textarea 
                                     @if($task->complete) disabled @endif
-                                    style="font-size:20px" class="form-control" rows="5" placeholder="Descripcion de la tarea" spellcheck="false" name="description">{{ $task->delivery ?? '' }}</textarea>
+                                    style="font-size:20px" class="form-control" rows="5" placeholder="Descripcion de la tarea" spellcheck="false" name="description" required>{{ $task->delivery ?? '' }}</textarea>
 
                                     @error('description')
                                         <p class="text-danger inputerror"> {{ $message }} </p>    

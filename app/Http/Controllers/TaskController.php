@@ -118,10 +118,6 @@ class TaskController extends Controller
 
     public function finishTask(Request $request, Task $task, Project $project)
     { 
-        $request->validate([
-            'description' => ['required', 'string', 'min:5', 'max:255'],
-        ]);
-
         if($task->complete){
             $task->complete = false;
         }
@@ -129,6 +125,7 @@ class TaskController extends Controller
             $task->complete = true;
             $task->delivery = $request->description;
         }
+
         $task->save();
 
         return redirect()->route('tasks.show', [$task, $project]);
