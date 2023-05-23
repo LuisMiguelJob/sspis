@@ -134,6 +134,7 @@ class TaskController extends Controller
         else{
             $task->complete = true;
             $task->delivery = $request->description;
+            $task->finishTask_date = now();
         }
 
         $task->save();

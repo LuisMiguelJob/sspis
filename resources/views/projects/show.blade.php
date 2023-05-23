@@ -184,10 +184,14 @@
     <h2 class="mb-4">Fases y tareas</h2>
 
     @if (count($areYouLeader) > 0) 
-        <a style="margin-top: 5px;" href="{{ route('phases.create', $project) }}" type="button" class="btn btn-success">
+        <a style="margin: 0px 0px 20px 20px;" href="{{ route('phases.create', $project) }}" type="button" class="btn btn-success">
             + Añadir fase
         </a>
     @endif  
+
+    <a style="margin: 0px 0px 20px 20px;width:fit-content" href="{{ route('projects.notifications', $project) }}" type="button" class="btn btn-success">
+        Notificaciones
+    </a>
 
     @foreach ($phases as $number=>$phase)
     

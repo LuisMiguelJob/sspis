@@ -65,7 +65,7 @@ class User extends Authenticatable
         return $this->belongsToMany(Project::class);
     }
 
-    /* Nuevo metodo */
+    /* Nuevo metodo no usado */ 
     /* public function tasks(){
         return $this->belongsToMany(Task::class); // Aqui se instuye que un usuario tiene muchas (HasMany) tareas.
     } */

@@ -49,6 +49,7 @@ Route::resource('users', UserController::class)->middleware('auth')->middleware(
 Route::get('projects/{project}/workers', [ProjectController::class, 'workers'])->name('projects.workers')->middleware('auth');
 Route::post('projects/{project}/addWorker', [ProjectController::class, 'addWorker'])->name('projects.addWorker')->middleware('auth');
 Route::get('projects/{project}/{user}/removeWorker', [ProjectController::class, 'removeWorker'])->name('projects.removeWorker')->middleware('auth');
+Route::get('projects/{project}/notifications', [ProjectController::class, 'notifications'])->name('projects.notifications')->middleware('auth');
 Route::resource('projects', ProjectController::class)->middleware('auth');
 
 Route::get('/phases/{project}/create',[PhaseController::class, 'create'])->name('phases.create')->middleware('auth');;

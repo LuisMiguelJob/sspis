@@ -27,6 +27,7 @@
                             @endif    
                         </strong></p>
                         <p>Descripcion: {{ $task->description }}</p>
+                        <p>Fecha: {{ $task->initial_date }} - {{ $task->final_date }}</p>
                     </div>
                 </div>
             </div>

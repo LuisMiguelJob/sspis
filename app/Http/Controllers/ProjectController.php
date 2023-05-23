@@ -184,4 +184,18 @@ class ProjectController extends Controller
         $user->projects()->detach($project->id);
         return redirect()->route('projects.workers', $project);
     }
+
+    public function notifications(Project $project)
+    { 
+        $project = Project::find($project->id);
+        $phases = Phase::where('project_id', $project->id)->get();
+        $leader = User::where('id', $project->user_id)->get();//Recupera la info del usuario que crea el proyecto para mostrarlo en el show
+        if(sizeof($phases) > 0)
+            $tasks = Task::where('project_id', $project->id)->where('user_id', Auth::id())->get();
+        else
+            $tasks = Task::where('phase_id', 0)->get();
+
+        return view('projects.notification', ['project'=>$project], compact('phases', 'tasks', 'leader'));
+    }
+    
 }

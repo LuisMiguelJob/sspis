@@ -17,6 +17,7 @@ return new class extends Migration
             $table->double('progress');
             $table->date('initial_date');
             $table->date('final_date');
+            $table->date('finishTask_date')->nullable();
             $table->text('description');
             $table->text('delivery'); // entregable de la tarea
             $table->boolean('complete')->default(false); // booleano que dice si la tarea fue completada
