@@ -91,10 +91,10 @@
                         <div class="card z-index-0 fadeIn3 fadeInBottom">
                             <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
                                 <div class="bg-gradient-primary shadow-primary border-radius-lg py-3 pe-1">
-                                    <h4 class="text-white font-weight-bolder text-center mt-2 mb-0">Iniciar sesiòn</h4>
+                                    <h4 class="text-white font-weight-bolder text-center mt-2 mb-0">Iniciar sesión</h4>
                                     <div class="row mt-3">
                                         <h6 class='text-white text-center'>
-                                            <span class="font-weight-normal">Proyecto SSPIS</span>
+                                            <span class="font-weight-normal">SSPIS</span>
                                         </h6>
                                         {{-- <div class="col-2 text-center ms-auto">
                                             <a class="btn btn-link px-3" href="javascript:;">
@@ -168,7 +168,7 @@
 
                                     <p class="mt-4 text-sm text-center">
                                         No tienes una cuenta?
-                                    <a href=" {{ route('register') }} " class="text-primary text-gradient font-weight-bold">Registro/Sign up</a>
+                                    <a href=" {{ route('register') }} " class="text-primary text-gradient font-weight-bold">Registrarse</a>
                                     </p>
                                     
                                     {{-- <p class="text-sm text-center">
@@ -181,6 +181,30 @@
                     </div>
                 </div>
             </div>
+            <footer class="footer position-absolute bottom-footer py-4 w-100 z-index-1">
+                <div class="container">
+                    <div class="row align-items-center justify-content-lg-between">
+                        <div class="col-12 col-md-6 my-auto">
+                            <div class="copyright text-center text-sm text-white text-lg-start">
+                                SSPIS Copyright © 2023
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <ul class="nav nav-footer justify-content-center justify-content-lg-end">
+                                <li class="nav-item">
+                                    <a href="https://www.macroplastics.com/images/docs/Terminos-y-Condiciones-de-Venta.pdf" class="nav-link pe-0 text-white" target="_blank">Política de privacidad</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="https://www.macroplastics.com/images/docs/Terminos-y-Condiciones-de-Venta.pdf" class="nav-link pe-0 text-white" target="_blank">Términos & Condiciones</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="https://www.creative-tim.com/license" class="nav-link pe-0 text-white" target="_blank">Licencia</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </footer>
         </div>
     </main>
     <script src=" {{ asset('assets/js/core/popper.min.js') }} "></script>
