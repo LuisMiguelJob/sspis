@@ -19,7 +19,9 @@
       const calendarEl = document.getElementById('calendar');
       const calendar = new FullCalendar.Calendar(calendarEl, {
         initialView: 'dayGridMonth',
+        // initialView: 'listWeek',
         locale: 'es',
+
         // initialView: 'timeGridWeek',
         events: @json($events)
       });
