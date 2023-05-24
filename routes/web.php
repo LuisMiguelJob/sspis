@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\calendarioController;
+
 use App\Http\Controllers\PhaseController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\TaskController;
@@ -64,6 +64,6 @@ Route::get('/tasks/{project}/{phase}/create', [TaskController::class, 'create'])
 Route::get('/tasks/{task}/{project}/{phase}/edit', [TaskController::class, 'edit'])->name('tasks.edit')->middleware('auth');;
 Route::resource('tasks', TaskController::class, ['except' => ['edit', 'create', 'show']])->middleware('auth');
 
-Route::get('/calendario-prueba', [calendarioController::class, 'index'])->name('calendario')->middleware('auth');
+Route::get('/calendario-prueba', [PhaseController::class, 'index'])->name('calendario')->middleware('auth');
 
 

@@ -11,9 +11,25 @@ class PhaseController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         //
+        $all_events = Phase::all();
+        $events = [];
+        foreach($all_events as $event){
+            $events[] = [
+                // 'title' => $event->event,
+                // 'start' => $event->start_date,
+                // 'end' => $event->end_date,
+                'title' => $event->name,
+                'start' => $event->initial_date,
+                'end' => $event->final_date,
+            ];
+        }
+
+        return view('projects.calendar', compact('events'));
+   
+    
     }
 
     /**

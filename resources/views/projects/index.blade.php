@@ -45,7 +45,7 @@
             Crear Proyecto
         </button>
 
-        {{-- <a  href="{{route('calendario')}}">Mostrar calendario</a> --}}
+        <a  href="{{route('calendario')}}">Mostrar calendario</a>
         @if (sizeof($proyectosLider) > 0)
 
         <h2>Proyectos Liderados</h2>
