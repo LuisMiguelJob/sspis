@@ -51,13 +51,20 @@
 
                                 <td>
                                     <div class="d-flex flex-column justify-content-center ps-2">
-                                        <h6 class="mb-0 text-x">
+                                        
                                         @if($task->complete)
-                                            "ENTREGADA"
+                                            <h6 class="mb-0 text-x" style="color: green"> 
+                                                "ENTREGADA" 
+                                                @if($task->finishTask_date > $task->final_date)
+                                                    A TIEMPO
+                                                @endif
+                                            </h6>    
                                         @else
-                                            "NO ENTREGADO"
+                                            <h6 class="mb-0 text-x" style="color:red"> 
+                                                "NO ENTREGADO" 
+                                            </h6>    
                                         @endif
-                                        </h6>    
+                                        
                                     </div>
                                 </td>
 
