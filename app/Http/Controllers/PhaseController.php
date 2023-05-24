@@ -1,10 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\Project;
-use App\Models\Phase;
 use App\Models\Task;
+use App\Models\Phase;
+use App\Models\Project;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PhaseController extends Controller
 {
@@ -14,7 +15,8 @@ class PhaseController extends Controller
     public function index(Request $request)
     {
         //
-        $all_events = Phase::all();
+        // $all_events = Phase::all();
+        $all_events = Phase::where('project_id', Auth::id())->get();
         $events = [];
         foreach($all_events as $event){
             $events[] = [
