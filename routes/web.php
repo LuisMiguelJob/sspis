@@ -50,6 +50,7 @@ Route::get('projects/{project}/workers', [ProjectController::class, 'workers'])-
 Route::post('projects/{project}/addWorker', [ProjectController::class, 'addWorker'])->name('projects.addWorker')->middleware('auth');
 Route::get('projects/{project}/{user}/removeWorker', [ProjectController::class, 'removeWorker'])->name('projects.removeWorker')->middleware('auth');
 Route::get('projects/{project}/notifications', [ProjectController::class, 'notifications'])->name('projects.notifications')->middleware('auth');
+Route::get('projects/{project}/calendar', [ProjectController::class, 'calendar'])->name('projects.calendar')->middleware('auth');
 Route::resource('projects', ProjectController::class)->middleware('auth');
 
 Route::get('/phases/{project}/create',[PhaseController::class, 'create'])->name('phases.create')->middleware('auth');;
@@ -63,6 +64,6 @@ Route::get('/tasks/{project}/{phase}/create', [TaskController::class, 'create'])
 Route::get('/tasks/{task}/{project}/{phase}/edit', [TaskController::class, 'edit'])->name('tasks.edit')->middleware('auth');;
 Route::resource('tasks', TaskController::class, ['except' => ['edit', 'create', 'show']])->middleware('auth');
 
-Route::get('/calendario-prueba', [calendarioController::class, 'index'])->name('calendario')->middleware('auth');;
+Route::get('/calendario-prueba', [calendarioController::class, 'index'])->name('calendario')->middleware('auth');
 
 

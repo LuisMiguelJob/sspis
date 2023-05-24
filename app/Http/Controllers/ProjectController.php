@@ -197,5 +197,17 @@ class ProjectController extends Controller
 
         return view('projects.notification', ['project'=>$project], compact('phases', 'tasks', 'leader'));
     }
-    
+
+    public function calendar(Request $request, Project $project)
+    { 
+        $project = Project::find($project->id);
+        $phases = Phase::where('project_id', $project->id)->get();
+        $leader = User::where('id', $project->user_id)->get();//Recupera la info del usuario que crea el proyecto para mostrarlo en el show
+        if(sizeof($phases) > 0)
+            $tasks = Task::where('project_id', $project->id)->orderBy('initial_date', 'ASC')->get();
+        else
+            $tasks = Task::where('phase_id', 0)->get();
+
+        return view('projects.calendar', ['project'=>$project], compact('phases', 'tasks', 'leader'));
+    }
 }

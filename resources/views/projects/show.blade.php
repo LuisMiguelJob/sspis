@@ -193,6 +193,12 @@
         Notificaciones
     </a>
 
+    {{--  --}}
+    <a style="margin: 0px 0px 20px 20px;width:fit-content" href="{{ route('projects.calendar', $project) }}" type="button" class="btn btn-success">
+        Calendario de actividades
+    </a>
+    {{--  --}}
+
     @foreach ($phases as $number=>$phase)
     
     <div class="row mb-5">
@@ -299,7 +305,7 @@
                                             <div style="width:19%;float:left;" class="card-header pb-0 float:left d-flex d-flex justify-content-center">
                                                 <p style="width:fit-content;float:left" class="">
                                                     <a style="width:100%;" href="{{ route('tasks.edit', [$task, $project, $phase]) }}" class="btn btn-info">
-                                                        Editar tarea
+                                                        Editar tarea 
                                                     </a>
                                                 </p>
                                             </div>
