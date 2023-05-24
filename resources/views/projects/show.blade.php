@@ -195,7 +195,7 @@
 
     {{--  --}}
     <a style="margin: 0px 0px 20px 20px;width:fit-content" href="{{ route('projects.calendar', $project) }}" type="button" class="btn btn-success">
-        Calendario de actividades
+        Actividades del proyecto
     </a>
     {{--  --}}
 

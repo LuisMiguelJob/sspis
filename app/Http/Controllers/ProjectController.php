@@ -208,6 +208,6 @@ class ProjectController extends Controller
         else
             $tasks = Task::where('phase_id', 0)->get();
 
-        return view('projects.calendar', ['project'=>$project], compact('phases', 'tasks', 'leader'));
+        return view('projects.calendario', ['project'=>$project], compact('phases', 'tasks', 'leader'));
     }
 }
