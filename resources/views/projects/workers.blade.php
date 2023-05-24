@@ -83,56 +83,63 @@
             </h4> 
         </div>
     </div>
-    <div class="card-body px-0 pb-2">
-        <div class="table-responsive p-0">
-            <table class="table align-items-center mb-0">
-                <thead>
-                    <tr>
-                        <th class="text-uppercase text-secondary text-x font-weight-bolder opacity-7">
-                            Nombre
-                        </th>
-                        <th class=" text-uppercase text-secondary text-x font-weight-bolder opacity-7 ps-3">
-                            Email
-                        </th>
-                        <th class=" text-uppercase text-secondary text-x font-weight-bolder opacity-7 ps-3">
-                            Rol
-                        </th>
-                        <th class="text-secondary opacity-7">Acciones</th>
-                    </tr>
-                </thead>
-                <tbody>
+    
+    @if(count($usersInProject) > 0)
+        <div class="card-body px-0 pb-2">
+            <div class="table-responsive p-0">
+                <table class="table align-items-center mb-0">
+                    <thead>
+                        <tr>
+                            <th class="text-uppercase text-secondary text-x font-weight-bolder opacity-7">
+                                Nombre
+                            </th>
+                            <th class=" text-uppercase text-secondary text-x font-weight-bolder opacity-7 ps-3">
+                                Email
+                            </th>
+                            <th class=" text-uppercase text-secondary text-x font-weight-bolder opacity-7 ps-3">
+                                Rol
+                            </th>
+                            <th class="text-secondary opacity-7">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
 
-                @foreach ($usersInProject as $uip)
-                    <tr>
-                        <td>
-                              <div class="d-flex flex-column justify-content-center ps-3">
-                                  <h6 class="mb-0 text-x">{{ $uip->name }}</h6>
-                              </div>
-                        </td>
+                    @foreach ($usersInProject as $uip)
+                        <tr>
+                            <td>
+                                <div class="d-flex flex-column justify-content-center ps-3">
+                                    <h6 class="mb-0 text-x">{{ $uip->name }}</h6>
+                                </div>
+                            </td>
 
-                        <td>
-                            <div class="d-flex flex-column justify-content-center ps-2">
-                                <h6 class="mb-0 text-x">{{ $uip->email }}</h6>
-                            </div>
-                        </td>
+                            <td>
+                                <div class="d-flex flex-column justify-content-center ps-2">
+                                    <h6 class="mb-0 text-x">{{ $uip->email }}</h6>
+                                </div>
+                            </td>
 
-                        <th class=" d-flex flex-column justify-content-center ps-3">
-                            <h6 class="mb-0 text-x">{{ $uip->roles->pluck('name')->first() }}</h6>
-                        </th>
+                            <th class=" d-flex flex-column justify-content-center ps-3">
+                                <h6 class="mb-0 text-x">{{ $uip->roles->pluck('name')->first() }}</h6>
+                            </th>
 
-                        <td class="align-middle">
-                            <a rel="tooltip" class="btn btn-info btn-link" href={{ route('projects.removeWorker', [$project, $uip]) }} data-original-title="" title="">
-                                Borrar
-                                <div class="ripple-container"></div>
-                            </a>
-                          </td>
+                            <td class="align-middle">
+                                <a rel="tooltip" class="btn btn-info btn-link" href={{ route('projects.removeWorker', [$project, $uip]) }} data-original-title="" title="">
+                                    Borrar
+                                    <div class="ripple-container"></div>
+                                </a>
+                            </td>
 
-                      </tr>
-                @endforeach
-                </tbody>
-            </table>
+                        </tr>
+                    @endforeach
+                    </tbody>
+                </table>
+            </div>
         </div>
-    </div>
+    @else
+        <div class="d-flex justify-content-center mb-4">
+            <h2>No hay trabajadores relacionados a este proyecto</h2>
+        </div>
+    @endif
   </div>
 
 @endsection
